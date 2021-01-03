@@ -1,0 +1,76 @@
+﻿@model JavaFloral.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <section class="card">
+            <header class="card-header">
+                <div class="row">
+                    <div class="col-11"> New Categories</div>
+                    <div class="col-1">
+                        <a asp-action="Index"><button class="btn btn-danger"><i class="fa fa-arrow-left"></i></button></a>
+                    </div>
+                </div>
+
+
+
+            </header>
+            <div class="container">
+
+              
+                  
+                <div class="col-md-12">
+                    <form asp-action="Create" style="width: 90%; margin:40px auto">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Status" class="control-label"></label>
+                            <input asp-for="Status" class="form-control" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Created_at" class="control-label"></label>
+                            <input asp-for="Created_at" class="form-control" />
+                            <span asp-validation-for="Created_at" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Updated_at" class="control-label"></label>
+                            <input asp-for="Updated_at" class="form-control" />
+                            <span asp-validation-for="Updated_at" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-danger" />
+                        </div>
+                    </form>
+                </div>
+             
+
+
+            </div>
+          
+
+        </section>
+      
+    </div>
+
+</div>
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
