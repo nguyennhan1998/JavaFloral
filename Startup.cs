@@ -12,6 +12,7 @@ using JavaFloral.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JavaFloral
 {
@@ -36,6 +37,9 @@ namespace JavaFloral
             services.AddRazorPages();
             services.AddControllersWithViews(x => x.SuppressAsyncSuffixInActionNames = false)
          .AddRazorRuntimeCompilation();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,11 +66,17 @@ namespace JavaFloral
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                name: "Admin",
+                areaName: "Admin",
+                pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=HomeClient}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+         
             });
+      
         }
     }
 }
