@@ -1,0 +1,88 @@
+﻿@model IEnumerable<JavaFloral.Models.Blog>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <section class="card">
+            <header class="card-header">
+                <div class="row">
+                    <div class="col-11"> List Blogs </div>
+                    <div class="col-1">
+                        <a asp-action="Create"><button class="btn btn-primary"><i class="fa fa-plus"></i></button></a>
+                    </div>
+                </div>
+
+
+
+            </header>
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BlogImage)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.ViewCount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    <img src="~/images/@item.BlogImage" style="width : 60px; height:60px" alt="BlogImage"/>
+                                </td>
+                                <td width="300px">
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                               
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ViewCount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger  btn-xs" asp-area="admin" asp-controller="blogs" asp-action="Delete" asp-route-id="@item.BlogID" data-original-title="Click to delete" title="">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                    <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="blogs" asp-action="Edit" asp-route-id="@item.BlogID" data-original-title="Click to edit" title="">
+
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-xs" asp-area="admin" asp-controller="blogs" asp-action="Details" asp-route-id="@item.BlogID" data-original-title="Detail" title="">
+                                        <i class="fa fa-info"></i>
+
+
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+
+</div>

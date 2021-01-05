@@ -283,7 +283,7 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
                     <li>
-                        <a class="active" href="index.html">
+                        <a class="active" href="/Admin">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
@@ -301,6 +301,7 @@
                         </ul>
                     </li>
 
+
                     <li class="sub-menu">
                         <a href="javascript:;">
                             <i class="fa fa-book"></i>
@@ -309,7 +310,19 @@
                         <ul class="sub">
                             <li><a asp-action="Index" asp-controller="products" asp-area="admin">List Product</a></li>
                             <li><a asp-action="Create" asp-controller="products" asp-area="admin">Create Product</a></li>
-                           
+
+                        </ul>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-bookmark-o"></i>
+                            <span>Blogs</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a asp-action="Index" asp-controller="blogs" asp-area="admin">List Blog</a></li>
+                            <li><a asp-action="Create" asp-controller="blogs" asp-area="admin">Create Blog</a></li>
+
                         </ul>
                     </li>
 

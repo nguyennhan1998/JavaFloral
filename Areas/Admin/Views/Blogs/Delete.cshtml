@@ -1,0 +1,91 @@
+﻿@model JavaFloral.Models.Blog
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <section class="card">
+            <header class="card-header">
+                <div class="row">
+                    <div class="col-11"> Delete Blog: </div>
+                    <div class="col-1">
+                        <a asp-area="admin" asp-action="Index"><button class="btn btn-danger"><i class="fa fa-arrow-left"></i></button></a>
+                    </div>
+                </div>
+
+
+
+            </header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+
+
+
+
+                        <div>
+
+                            <dl class="row" style="width: 80%; margin: 30px auto;">
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Title)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Description)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Content)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Content)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.ViewCount)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ViewCount)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Status)
+                                </dd>
+                            </dl>
+
+                            <form asp-area="admin" asp-action="Delete" class="container" style="width: 80%; margin: 30px auto;">
+                                <input type="hidden" asp-for="BlogID" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+
+                            </form>
+                        </div>
+                        <div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </section>
+
+    </div>
+
+</div>
+

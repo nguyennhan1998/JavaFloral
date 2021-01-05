@@ -44,10 +44,10 @@
                                     <li class="top-hover">
                                         <a href="#">My Account <i class="ion-chevron-down"></i></a>
                                         <ul>
-                                            <li><a href="wishlist.html">Wishlist  </a></li>
-                                            <li><a href="login-register.html">Login</a></li>
-                                            <li><a href="login-register.html">Register</a></li>
-                                            <li><a href="my-account.html">my account</a></li>
+                                            <li><a asp-action="WishList" asp-controller="HomeClient">Wishlist  </a></li>
+                                            <li><a asp-action="LoginRegister" asp-controller="HomeClient">Login</a></li>
+                                            <li><a asp-action="LoginRegister" asp-controller="HomeClient">Register</a></li>
+                                            <li><a asp-action="MyAccount" asp-controller="HomeClient">my account</a></li>
                                         </ul>
                                     </li>
                                     <li class="top-hover">
@@ -91,16 +91,16 @@
                                 <nav>
                                     <ul>
                                         <li class="top-hover">
-                                            <a href="index.html">home</a>
-                                            <ul class="submenu">
+                                            <a href="/">home</a>
+                                           @* <ul class="submenu">
                                                 <li><a href="index.html">home version 1</a></li>
                                                 <li><a href="index-2.html">home version 2</a></li>
-                                            </ul>
+                                            </ul>*@
                                         </li>
-                                        <li><a href="about-us.html">about</a></li>
+                                        <li><a asp-action="About" asp-controller="HomeClient">about</a></li>
                                         <li class="mega-menu-position top-hover">
-                                            <a href="shop.html">shop</a>
-                                            <ul class="mega-menu">
+                                            <a asp-action="Product" asp-controller="HomeClient">shop</a>
+                                           @* <ul class="mega-menu">
                                                 <li>
                                                     <ul>
                                                         <li class="mega-menu-title">Categories 01</li>
@@ -145,32 +145,11 @@
                                                         <li><a href="shop.html">Dame’s Rocket</a></li>
                                                     </ul>
                                                 </li>
-                                            </ul>
+                                            </ul>*@
                                         </li>
                                         <li class="top-hover">
-                                            <a href="blog-left-sidebar.html">blog</a>
-                                            <ul class="submenu">
-                                                <li><a href="blog-masonry.html">Blog Masonry</a></li>
-                                                <li>
-                                                    <a href="#">Blog Standard <span><i class="ion-ios-arrow-right"></i></span></a>
-                                                    <ul class="lavel-menu">
-                                                        <li><a href="blog-left-sidebar.html">left sidebar</a></li>
-                                                        <li><a href="blog-right-sidebar.html">right sidebar</a></li>
-                                                        <li><a href="blog-no-sidebar.html">no sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Post Types <span><i class="ion-ios-arrow-right"></i></span> </a>
-                                                    <ul class="lavel-menu">
-                                                        <li><a href="blog-details-standerd.html">Standard post</a></li>
-                                                        <li><a href="blog-details-audio.html">audio post</a></li>
-                                                        <li><a href="blog-details-video.html">video post</a></li>
-                                                        <li><a href="blog-details-gallery.html">gallery post</a></li>
-                                                        <li><a href="blog-details-link.html">link post</a></li>
-                                                        <li><a href="blog-details-quote.html">quote post</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+                                            <a asp-action="Blog" asp-controller="HomeClient">blog</a>
+                                          
                                         </li>
                                         <li class="top-hover">
                                             <a href="#">pages</a>
@@ -188,12 +167,12 @@
                                                 <li><a href="testimonial.html">Testimonials</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="contact.html">contact</a></li>
+                                        <li><a asp-action="Contact" asp-controller="HomeClient">contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
                             <div class="header-cart">
-                                <a href="#">
+                                <a asp-action="CartPage" asp-controller="HomeClient">
                                     <div class="cart-icon">
                                         <i class="ion-bag"></i>
                                         <span class="count-style">02</span>
@@ -237,8 +216,8 @@
                                         <h4>Total : <span class="shop-total">$260.00</span></h4>
                                     </div>
                                     <div class="shopping-cart-btn">
-                                        <a href="cart-page.html">view cart</a>
-                                        <a href="checkout.html">checkout</a>
+                                        <a asp-action="CartPage" asp-controller="HomeClient">view cart</a>
+                                        <a asp-action="Checkout" asp-controller="HomeClient">checkout</a>
                                     </div>
                                 </div>
                             </div>
@@ -354,75 +333,7 @@
             </div>
         </div>
     </header>
-    <div class="slider-area">
-        <div class="slider-active owl-dot-style owl-carousel">
-            <div class="single-slider pt-175 pb-258 bg-img" style="        background-image: url(~/ClientFile/assets/img/slider/slider-1.jpg);">
-                <div class="container">
-                    <div class="slider-content slider-animated-1">
-                        <h3 class="animated">New Arrivals</h3>
-                        <h1 class="animated">For Mother’s Day!</h1>
-                        <h5 class="animated">Exclusive Offer -10% Off This Week</h5>
-                        <div class="slider-btn mt-45">
-                            <a class="animated" href="product-details.html">shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-slider pt-175 pb-258 bg-img" style="        background-image: url(~/ClientFile/assets/img/slider/slider-2.jpg);">
-                <div class="container">
-                    <div class="slider-content slider-animated-2">
-                        <h3 class="animated">New Arrivals</h3>
-                        <h1 class="animated">For Mother’s Day!</h1>
-                        <h5 class="animated">Exclusive Offer -10% Off This Week</h5>
-                        <div class="slider-btn mt-45">
-                            <a class="animated" href="product-details.html">shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="banner-area">
-        <div class="container">
-            <div class="banner-wrap">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-banner img-zoom mb-30">
-                            <a href="#">
-                                <img src="~/ClientFile/assets/img/banner/banner-1.png" alt="">
-                            </a>
-                            <div class="banner-content">
-                                <h4>Camellias</h4>
-                                <a href="#">shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-banner img-zoom mb-30">
-                            <a href="#">
-                                <img src="~/ClientFile/assets/img/banner/banner-2.png" alt="">
-                            </a>
-                            <div class="banner-content">
-                                <h4>Bergamot</h4>
-                                <a href="#">shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="single-banner mb-xs-banner img-zoom mb-30">
-                            <a href="#">
-                                <img src="~/ClientFile/assets/img/banner/banner-3.png" alt="">
-                            </a>
-                            <div class="banner-content">
-                                <h4>Bottlebrush</h4>
-                                <a href="#">shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     @RenderBody()
     <footer class="footer-area pt-58 gray-bg-3">
         <div class="footer-top gray-bg-3 pb-20">

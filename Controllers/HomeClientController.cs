@@ -95,5 +95,52 @@ namespace JavaFloral.Controllers
             var product = _context.Products.ToList();
             return View(product);
         }
+        public ActionResult Blog()
+        {
+            var blog = _context.Blog.ToList();
+            return View(blog);
+        }
+        public ActionResult About()
+        {
+           
+            return View();
+        }
+         public ActionResult Contact()
+        {
+           
+            return View();
+        }
+        public ActionResult CartPage()
+        {
+           
+            return View();
+        } public ActionResult CheckOut()
+        {
+           
+            return View();
+        }
+        public ActionResult LoginRegister()
+        {
+
+            return View();
+        }
+        public ActionResult MyAccount()
+        {
+
+            return View();
+        }
+        public ActionResult ProductDetail()
+        {
+
+            return View();
+        }
+        public ActionResult WishList()
+        {
+
+            return View();
+        }
+
+
+
     }
 }

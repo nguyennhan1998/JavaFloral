@@ -17,5 +17,6 @@ namespace JavaFloral.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<JavaFloral.ViewModels.ProductViewModel> ProductViewModel { get; set; }
+        public DbSet<JavaFloral.Models.Blog> Blog { get; set; }
     }
 }
