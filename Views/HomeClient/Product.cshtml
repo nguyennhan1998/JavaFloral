@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JavaFloral.Models.Product>
+﻿@model JavaFloral.ViewModels.ProductListViewModel
 @{
     ViewData["Title"] = "Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -51,12 +51,12 @@
                 <div class="grid-list-product-wrapper">
                     <div class="product-grid product-view pb-20">
                         <div class="row">
-                            @foreach (var product in Model)
+                            @foreach (var product in Model.Products)
                             {
                                 <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
                                     <div class="product-wrapper">
                                         <div class="product-img">
-                                            <a href="product-details.html">
+                                            <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@product.ProductID">
                                                 <img alt="" src="~/images/@product.ProductImage">
                                             </a>
                                             <span>-30%</span>
@@ -64,7 +64,7 @@
                                                 <a class="action-wishlist" href="#" title="Wishlist">
                                                     <i class="icon-heart"></i>
                                                 </a>
-                                                <a class="action-cart" href="#" title="Add To Cart">
+                                                <a data-id="@product.ProductID" data-name="@product.Name" onclick="addToCart(this)">
                                                     <i class="icon-handbag"></i>
                                                 </a>
                                                 <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
@@ -131,38 +131,21 @@
                         <div class="shop-catigory">
                             <ul id="faq">
                                 <li>
-                                    <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-1">Birthday Bouquets <i class="ion-ios-arrow-down"></i></a>
+                                   
                                     <ul id="shop-catigory-1" class="panel-collapse collapse show">
-                                        <li><a href="#">Aster</a></li>
-                                        <li><a href="#">Aubrieta</a></li>
-                                        <li><a href="#">Basket of Gold</a></li>
-                                        <li><a href="#">Bellflower</a></li>
-                                        <li><a href="#">Buttercup</a></li>
+                                            <li><a asp-controller="HomeClient" asp-action="Product" asp-route-id="0">All</a></li>
+                                        @foreach (var items in Model.Categories)
+
+                                        {
+                                            <li><a asp-controller="HomeClient" asp-action="Product" asp-route-id="@items.Categoryid">@items.Name</a></li>
+                                          
+                                        }
+                                   
+
+
                                     </ul>
                                 </li>
-                                <li>
-                                    <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-2">Bride's Bouquets<i class="ion-ios-arrow-down"></i></a>
-                                    <ul id="shop-catigory-2" class="panel-collapse collapse">
-                                        <li><a href="#">Calendula</a></li>
-                                        <li><a href="#">Carnation</a></li>
-                                        <li><a href="#">Castor Bean</a></li>
-                                        <li><a href="#">Catmint</a></li>
-                                        <li><a href="#">Chives</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-3">Funeral Flowers <i class="ion-ios-arrow-down"></i></a>
-                                    <ul id="shop-catigory-3" class="panel-collapse collapse">
-                                        <li><a href="#">Cleome</a></li>
-                                        <li><a href="#">Columbine</a></li>
-                                        <li><a href="#">Coneflower</a></li>
-                                        <li><a href="#">Coreopsis</a></li>
-                                        <li><a href="#">Cosmos</a></li>
-                                    </ul>
-                                </li>
-                                <li> <a href="#">Interior Decor</a> </li>
-                                <li> <a href="#">Wedding Decor</a></li>
-                                <li> <a href="#">Custom Orders</a></li>
+                               
                             </ul>
                         </div>
                     </div>
@@ -236,4 +219,28 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function addToCart(e) {
+        let productID = $(e).attr("data-id");
+        let productName = $(e).attr("data-name");
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '@Url.Action("AddToCart")',
+            data: { id: productID },
+            success:
+                function (response) {
+                    if (response.status == "true") {
+                        alert("Add To Cart Successfully Product : " + productName)
+                    }
+                
+                },
+            error:
+                function (response) {
+                  
+                }
+
+        });
+    }
+</script>
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model JavaFloral.Models.Product
 @{
     ViewData["Title"] = "ProductDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,8 +18,8 @@
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-img">
-                    <img class="zoompro" src="~/ClientFile/assets/img/product-details/product-detalis-l1.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg" alt="zoom" />
-                    <div id="gallery" class="mt-20 product-dec-slider owl-carousel">
+                    <img class="zoompro" src="~/images/@Model.ProductImage" data-zoom-image="~/images/@Model.ProductImage" alt="zoom" />
+               @*     <div id="gallery" class="mt-20 product-dec-slider owl-carousel">
                         <a data-image="~/ClientFile/assets/img/product-details/product-detalis-l1.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg">
                             <img src="~/ClientFile/assets/img/product-details/product-detalis-s1.jpg" alt="">
                         </a>
@@ -38,13 +38,13 @@
                         <a data-image="~/ClientFile/assets/img/product-details/product-detalis-l2.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl2.jpg">
                             <img src="~/ClientFile/assets/img/product-details/product-detalis-s2.jpg" alt="">
                         </a>
-                    </div>
+                    </div>*@
                     <span>-29%</span>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-content">
-                    <h4>Glory of the Snow</h4>
+                    <h4>@Model.Name</h4>
                     <div class="rating-review">
                         <div class="pro-dec-rating">
                             <i class="ion-android-star-outline theme-star"></i>
@@ -60,26 +60,22 @@
                             </ul>
                         </div>
                     </div>
-                    <span>$260.00</span>
+                    <span>$@Model.Price</span>
                     <div class="in-stock">
                         <p>Available: <span>In stock</span></p>
                     </div>
-                    <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. </p>
+                    <p>@Model.Description</p>
                     <div class="pro-dec-feature">
                         <ul>
-                            <li><input type="checkbox"> Protection Plan: <span> 2 year  $4.99</span></li>
-                            <li><input type="checkbox"> Remote Holder: <span> $9.99</span></li>
-                            <li><input type="checkbox"> Koral Alexa Voice Remote Case: <span> Red  $16.99</span></li>
-                            <li><input type="checkbox"> Amazon Basics HD Antenna: <span>25 Mile  $14.99</span></li>
+                            <li>Color: <span> @Model.Color</span></li>
+                            <li>Smell: <span>@Model.Smell</span></li>
+                   
                         </ul>
                     </div>
                     <div class="quality-add-to-cart">
-                        <div class="quality">
-                            <label>Qty:</label>
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
-                        </div>
+                    
                         <div class="shop-list-cart-wishlist">
-                            <a title="Add To Cart" href="#">
+                            <a title="Add To Cart" data-name="@Model.Name" data-id="@Model.ProductID" onclick="addToCart(this)">
                                 <i class="icon-handbag"></i>
                             </a>
                             <a title="Wishlist" href="#">
@@ -87,26 +83,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="pro-dec-categories">
-                        <ul>
-                            <li class="categories-title">Categories:</li>
-                            <li><a href="#">Birthday,</a></li>
-                            <li><a href="#"> Bouquets, </a></li>
-                            <li><a href="#">Custom Orders,</a></li>
-                            <li><a href="#">Home Decor,</a></li>
-                            <li><a href="#">Weddings, </a></li>
-                        </ul>
-                    </div>
-                    <div class="pro-dec-categories">
-                        <ul>
-                            <li class="categories-title">Tags: </li>
-                            <li><a href="#"> Bouquet,</a></li>
-                            <li><a href="#"> Event, </a></li>
-                            <li><a href="#"> Gift,</a></li>
-                            <li><a href="#"> Joy,</a></li>
-                            <li><a href="#"> Love </a></li>
-                        </ul>
-                    </div>
+              
                     <div class="pro-dec-social">
                         <ul>
                             <li><a class="tweet" href="#"><i class="ion-social-twitter"></i> Tweet</a></li>
@@ -380,4 +357,28 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function addToCart(e) {
+        let productID = $(e).attr("data-id");
+        let productName = $(e).attr("data-name");
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '@Url.Action("AddToCart")',
+            data: { id: productID },
+            success:
+                function (response) {
+                    if (response.status == "true") {
+                        alert("Add To Cart Successfully Product : " + productName)
+                    }
+
+                },
+            error:
+                function (response) {
+
+                }
+
+        });
+    }
+</script>
 

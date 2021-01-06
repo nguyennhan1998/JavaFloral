@@ -38,7 +38,11 @@ namespace JavaFloral
             services.AddControllersWithViews(x => x.SuppressAsyncSuffixInActionNames = false)
          .AddRazorRuntimeCompilation();
             services.AddMvc(options => options.EnableEndpointRouting = false);
-
+            services.AddDistributedMemoryCache();          
+            services.AddSession(cfg => {                    
+                cfg.Cookie.Name = "cart";             
+                cfg.IdleTimeout = new TimeSpan(60,60, 0);    
+            });
 
         }
 
@@ -60,6 +64,7 @@ namespace JavaFloral
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
