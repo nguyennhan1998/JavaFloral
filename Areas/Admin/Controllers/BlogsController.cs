@@ -29,7 +29,7 @@ namespace JavaFloral.Areas.Admin.Controllers
         // GET: Admin/Blogs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Blog.ToListAsync());
+            return View(_context.Blogs.ToListAsync());
         }
 
         // GET: Admin/Blogs/Details/5
@@ -40,7 +40,7 @@ namespace JavaFloral.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blog
+            var blog = await _context.Blogs
                 .FirstOrDefaultAsync(m => m.BlogID == id);
             if (blog == null)
             {
@@ -107,7 +107,7 @@ namespace JavaFloral.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blog.FindAsync(id);
+            var blog = await _context.Blogs.FindAsync(id);
             BlogViewModel model = new BlogViewModel
             {
                 BlogID = blog.BlogID,
@@ -140,8 +140,8 @@ namespace JavaFloral.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                var blogs = await _context.Blog.FindAsync(id);
-                _context.Blog.Remove(blogs);
+                var blogs = await _context.Blogs.FindAsync(id);
+                _context.Blogs.Remove(blogs);
                 await _context.SaveChangesAsync();
                 try
                 {
@@ -183,7 +183,7 @@ namespace JavaFloral.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blog
+            var blog = await _context.Blogs
                 .FirstOrDefaultAsync(m => m.BlogID == id);
             if (blog == null)
             {
@@ -198,15 +198,15 @@ namespace JavaFloral.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var blog = await _context.Blog.FindAsync(id);
-            _context.Blog.Remove(blog);
+            var blog = await _context.Blogs.FindAsync(id);
+            _context.Blogs.Remove(blog);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BlogExists(int id)
         {
-            return _context.Blog.Any(e => e.BlogID == id);
+            return _context.Blogs.Any(e => e.BlogID == id);
         }
     }
 }

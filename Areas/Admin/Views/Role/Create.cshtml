@@ -1,0 +1,48 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <section class="card">
+            <header class="card-header">
+                <div class="row">
+                    <div class="col-11"> New Roles</div>
+                    <div class="col-1">
+                        <a asp-area="admin" asp-action="Index"><button class="btn btn-danger"><i class="fa fa-arrow-left"></i></button></a>
+                    </div>
+                </div>
+
+
+
+            </header>
+            <div class="container">
+
+
+
+                <div class="col-md-12">
+                 
+                    <form asp-action="Create" method="post" style="width: 90%; margin:40px auto">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input name="name" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-danger">Create</button>
+                    </form>
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </section>
+
+    </div>
+
+</div>

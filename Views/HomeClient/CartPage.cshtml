@@ -148,11 +148,12 @@
                                 }
                                 <h5>Total Money :  <span>$@total</span></h5>
                                 <h4 class="grand-totall-title">Grand Total  <span>$@total</span></h4>
-                                <a href="#">Proceed to Checkout</a>
+                                <a asp-action="CheckOut" asp-controller="HomeClient">Proceed to Checkout</a>
                             }
                             else
                             {
                                 <h5>$0</h5>
+                                <a asp-action="CheckOut" asp-controller="HomeClient">Proceed to Checkout</a>
                             }
 
 

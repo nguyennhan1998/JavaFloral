@@ -1,0 +1,100 @@
+﻿@model IEnumerable<JavaFloral.Models.Orders>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <section class="card">
+            <header class="card-header">
+                <div class="row">
+                    <div class="col-11"> List Orders </div>
+                   
+                </div>
+
+
+
+            </header>
+            <div class="container">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreateAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdateAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.GrandTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserID)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UpdateAt)
+                                </td>
+                                <td>
+                                    @if (item.Status == 0)
+                                    {
+                                        <span class="text-danger">Shipping Processing</span>
+                                    }
+                                    else if (item.Status == 2)
+                                    {
+                                        <span class="text-danger">Order Cancel</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger">Success</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GrandTotal)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserID)
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger  btn-xs" asp-area="admin" asp-controller="orders" asp-action="Edit" asp-route-id="@item.ID" title="">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="orders" asp-action="Details" asp-route-id="@item.ID"  title="">
+                                            <i class="fa fa-info-circle"></i>
+                                       
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+
+</div>
+
+
+

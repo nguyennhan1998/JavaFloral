@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using JavaFloral.Data;
 using JavaFloral.Models;
 using JavaFloral.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -15,11 +17,13 @@ namespace JavaFloral.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<IdentityUser> _userManager;
         // GET: HomeClientController
-        public HomeClientController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public HomeClientController(UserManager<IdentityUser> userManager,ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
         public ActionResult Index()
         {
@@ -97,7 +101,7 @@ namespace JavaFloral.Controllers
         }
         public ActionResult Product(int id)
         {
-            Console.WriteLine(id);
+          
             var pvm = new ProductListViewModel();
             pvm.Categories = _context.Categories.ToList();
 
@@ -188,7 +192,7 @@ namespace JavaFloral.Controllers
             var session = _httpContextAccessor.HttpContext.Session;
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
-            Console.WriteLine(session.GetString(CARTKEY));
+        
         }
         public IActionResult CartPage()
         {
@@ -223,11 +227,54 @@ namespace JavaFloral.Controllers
 
             return Json(new { status = "true"});
 
-        } 
-        public ActionResult CheckOut()
+        }
+        [Authorize]
+        public async Task<ActionResult> CheckOut()
         {
-           
-            return View();
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+
+            var cvm = new CheckoutViewModel();
+            cvm.Users = currentUser;
+            cvm.Carts = GetCartItems();
+
+
+            return View(cvm);
+        }
+        public async Task<ActionResult> SaveOrder()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+            var cart = GetCartItems();
+            decimal grandTotal = 0;
+            foreach(var item in cart)
+            {
+                var total = item.quantity * item.product.Price;
+                grandTotal += total;
+            }
+    
+
+                Orders order = new Orders
+            {
+                OrderName = currentUser.UserName,
+                Status = 0,
+                GrandTotal = grandTotal,
+                UserID = currentUser.UserName,
+            };
+            _context.Add(order);
+            _context.SaveChanges();
+            foreach (var item in cart)
+            {
+                OrderProducts orderProducts = new OrderProducts();
+                orderProducts.OrderID = order.ID;
+                orderProducts.ProductID = item.product.ProductID;
+                orderProducts.UserID = currentUser.UserName;
+                _context.Add(orderProducts);
+                _context.SaveChanges();
+            }
+            var session = _httpContextAccessor.HttpContext.Session;
+            session.Remove(CARTKEY);
+            return Json(new { status = "true" });
         }
         public ActionResult LoginRegister()
         {
