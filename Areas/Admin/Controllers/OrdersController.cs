@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JavaFloral.Data;
 using JavaFloral.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JavaFloral.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "ADMIN")]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;

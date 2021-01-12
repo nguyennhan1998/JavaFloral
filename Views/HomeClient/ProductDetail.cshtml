@@ -19,7 +19,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-img">
                     <img class="zoompro" src="~/images/@Model.ProductImage" data-zoom-image="~/images/@Model.ProductImage" alt="zoom" />
-               @*     <div id="gallery" class="mt-20 product-dec-slider owl-carousel">
+                    <div id="gallery" class="mt-20 product-dec-slider owl-carousel">
                         <a data-image="~/ClientFile/assets/img/product-details/product-detalis-l1.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg">
                             <img src="~/ClientFile/assets/img/product-details/product-detalis-s1.jpg" alt="">
                         </a>
@@ -38,7 +38,7 @@
                         <a data-image="~/ClientFile/assets/img/product-details/product-detalis-l2.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl2.jpg">
                             <img src="~/ClientFile/assets/img/product-details/product-detalis-s2.jpg" alt="">
                         </a>
-                    </div>*@
+                    </div>
                     <span>-29%</span>
                 </div>
             </div>
@@ -75,7 +75,10 @@
                     <div class="quality-add-to-cart">
                     
                         <div class="shop-list-cart-wishlist">
-                            <a title="Add To Cart" data-name="@Model.Name" data-id="@Model.ProductID" onclick="addToCart(this)">
+                            <a title="Add To Cart" data-name="@Model.Name" data-id="@Model.ProductID" onclick="addToCart(this)"   
+                                onMouseOver="this.style.color='#ffff'"
+                                onMouseOut="this.style.color='#242424'"  
+                                style="cursor: pointer;">
                                 <i class="icon-handbag"></i>
                             </a>
                             <a title="Wishlist" href="#">

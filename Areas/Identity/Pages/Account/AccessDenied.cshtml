@@ -1,10 +1,15 @@
 ﻿@page
 @model AccessDeniedModel
-@{
-    ViewData["Title"] = "Access denied";
-}
+
 
 <header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
+    <div class="container">
+        <section class="error-wrapper" style="text-align: center; margin : 50px 0 50px 0px">
+            <i class="icon-404"></i>
+            <h1>404</h1>
+            <h2>Page not found</h2>
+            <p class="page-404">Some thing went wrong or you not have access to this page !</p>
+            <a class="btn btn-danger btn-sm" asp-controller="HomeClient" asp-action="Index">Go to home page</a>
+        </section>
+    </div>
 </header>

@@ -1,0 +1,46 @@
+﻿@model JavaFloral.Models.Blog
+@{
+    ViewData["Title"] = "BlogDetails";
+}
+<div class="breadcrumb-area gray-bg">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Blog Details Standerd </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- blog-area start -->
+<div class="blog-area ptb-75">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-9 col-md-8">
+                <div class="blog-details-wrapper">
+                    <div class="single-blog-wrapper">
+                        <div class="blog-img mb-30">
+                            <img src="~/images/@Model.BlogImage" alt="">
+                        </div>
+                        <div class="blog-content">
+                            <h2>@Model.Title </h2>
+                            <div class="blog-date-categori">
+                                <ul>
+                                    <li>@DateTime.Now </li>
+                                    <li>Admin</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>@Model.Description</p>
+                        <div class="container" style="text-align: justify">
+                            @Html.Raw(Model.Content)
+                        </div>
+              
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+

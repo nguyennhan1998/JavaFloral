@@ -10,10 +10,12 @@ using JavaFloral.Models;
 using System.IO;
 using JavaFloral.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JavaFloral.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "ADMIN")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;

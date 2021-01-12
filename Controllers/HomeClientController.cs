@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using JavaFloral.Data;
+﻿using JavaFloral.Data;
 using JavaFloral.Models;
 using JavaFloral.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace JavaFloral.Controllers
 {
@@ -25,10 +25,13 @@ namespace JavaFloral.Controllers
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
         }
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-
-            return View();
+            var vm = new ProductListViewModel();
+            vm.Categories = _context.Categories.ToList();
+            vm.Products = _context.Products.Where(p => p.CategoryID == id).OrderByDescending(b => b.Created_at).ToList();
+            
+            return View(vm);
         }
 
         // GET: HomeClientController/Details/5
@@ -99,26 +102,43 @@ namespace JavaFloral.Controllers
                 return View();
             }
         }
-        public ActionResult Product(int id)
+        public ActionResult Product(int id,string color,string soft)
         {
           
             var pvm = new ProductListViewModel();
             pvm.Categories = _context.Categories.ToList();
+            pvm.Products = _context.Products.ToList();
 
-            if (id == 0)
-            {
-                pvm.Products = _context.Products.ToList();
-            }
-            else
+            if (id != 0)
             {
                 pvm.Products = _context.Products.Where(c => c.CategoryID == id).ToList();
             }
+            if (!string.IsNullOrEmpty(color))
+            {
+                pvm.Products = _context.Products.Where(b => b.Color.ToLower().Contains(color.ToLower())).ToList();
+            }
+            if(!string.IsNullOrEmpty(soft) && soft.Equals("Name"))
+            {
+                pvm.Products = _context.Products.OrderByDescending(p => p.Name).ToList();
 
+            }
+            if (!string.IsNullOrEmpty(soft) && soft.Equals("Price"))
+            {
+                pvm.Products = _context.Products.OrderByDescending(p => p.Price).ToList();
+
+            }
             return View(pvm);
         }
-        public ActionResult Blog()
+        public async Task<IActionResult> Blog()
         {
-            return View();
+
+            return View(await _context.Blogs.ToListAsync());
+        }
+        public ActionResult BlogDetails(int id)
+        {
+            var blog = _context.Blogs.Where(b => b.BlogID == id).FirstOrDefault();
+            return View(blog);
+
         }
         public ActionResult About()
         {

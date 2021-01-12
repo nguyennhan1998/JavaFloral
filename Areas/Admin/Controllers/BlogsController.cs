@@ -10,10 +10,12 @@ using JavaFloral.Models;
 using Microsoft.AspNetCore.Hosting;
 using JavaFloral.ViewModels;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JavaFloral.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "ADMIN")]
     public class BlogsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,7 +31,7 @@ namespace JavaFloral.Areas.Admin.Controllers
         // GET: Admin/Blogs
         public async Task<IActionResult> Index()
         {
-            return View(_context.Blogs.ToListAsync());
+            return View(await _context.Blogs.ToListAsync());
         }
 
         // GET: Admin/Blogs/Details/5
