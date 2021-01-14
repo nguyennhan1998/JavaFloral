@@ -59,7 +59,7 @@
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="logo">
                             <a href="index.html">
-                                <img alt="" src="~/ClientFile/assets/img/logo/logo.png">
+                                <img alt="" src="~/ClientFile/assets/img/logo/logo6.png">
                             </a>
                         </div>
                     </div>
@@ -308,12 +308,15 @@
                                 <h4>About Us</h4>
                             </div>
                             <div class="footer-about">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididun</p>
+                                <p>
+                                    Java Florist offers professionally designed flower arrangements for all
+                                    occasions
+                                </p>
                                 <div class="footer-contact mt-20">
                                     <ul>
-                                        <li>Address: 123 Main Street, Anytown, CA 12345 - USA.</li>
-                                        <li>Telephone: (012) 800 456 789-987 </li>
-                                        <li>Email: <a href="#">yourmail@example.com</a></li>
+                                        <li>Address: No.8, Ton That Thuyet, My Dinh, Ha Noi, Viet Nam</li>
+                                        <li>Telephone:  0393428573</li>
+                                        <li>Email: <a href="#">bigboss@gmail.com</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -336,8 +339,8 @@
                             </div>
                             <div class="footer-content">
                                 <ul>
-                                    <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="#">Delivery Information</a></li>
+                                    <li><a asp-controller="HomeClient" asp-action="AboutUs">About Us</a></li>
+                                    <li><a  href="#">Delivery Information</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Terms & Conditions</a></li>
                                     <li><a href="#">Customer Service</a></li>
@@ -353,9 +356,9 @@
                             </div>
                             <div class="footer-content">
                                 <ul>
-                                    <li><a href="my-account.html">My Account</a></li>
+                                    <li><a asp-controller="HomeClient" asp-action="MyAccount">My Account</a></li>
                                     <li><a href="about-us.html">Order History</a></li>
-                                    <li><a href="wishlist.html">WishList</a></li>
+                                    <li><a asp-controller="HomeClient" asp-action="WishList">WishList</a></li>
                                     <li><a href="#">Newsletter</a></li>
                                     <li><a href="about-us.html">Order History</a></li>
                                     <li><a href="#">International Orders</a></li>
@@ -391,7 +394,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="copyright">
-                            <p>Copyright © <a href="#">Phuler</a>. All Right Reserved.</p>
+                            <p>Copyright © <a href="#">Florist</a>. All Right Reserved.</p>
                         </div>
                     </div>
                     <div class="col-md-6">

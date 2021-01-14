@@ -58,16 +58,19 @@
                                 <td>
                                     @if (item.Status == 0)
                                     {
-                                        <span class="text-danger">Shipping Processing</span>
+                                        <span class="badge badge-primary label-mini">Shipping Processing</span>
+
                                     }
                                     else if (item.Status == 2)
                                     {
-                                        <span class="text-danger">Order Cancel</span>
+
+                                        <span class="badge badge-danger label-mini">Order Cancel</span>
 
                                     }
                                     else
                                     {
-                                        <span class="text-danger">Success</span>
+                                        
+                                        <span class="badge badge-success label-mini">Success</span>
                                     }
                                 </td>
                                 <td>
