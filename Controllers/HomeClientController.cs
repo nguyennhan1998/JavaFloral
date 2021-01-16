@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
+using MimeKit;
+using System;
 
 namespace JavaFloral.Controllers
 {
@@ -261,7 +264,8 @@ namespace JavaFloral.Controllers
 
             return View(cvm);
         }
-        public async Task<ActionResult> SaveOrder()
+      
+        public async Task<ActionResult> SaveOrder(string address,string message,int paymenttype,string telephone,string emailto)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
@@ -272,25 +276,50 @@ namespace JavaFloral.Controllers
                 var total = item.quantity * item.product.Price;
                 grandTotal += total;
             }
-    
 
-                Orders order = new Orders
+
+            Orders order = new Orders
             {
                 OrderName = currentUser.UserName,
                 Status = 0,
                 GrandTotal = grandTotal,
+                CreateAt = DateTime.Now,
                 UserID = currentUser.UserName,
-            };
+                address = !string.IsNullOrEmpty(address) ? address : "",
+                message = !string.IsNullOrEmpty(message) ? message : "",
+                telephone = !string.IsNullOrEmpty(telephone) ? telephone : "",
+                paymenttype = paymenttype != 0 ? paymenttype : 2
+                };
             _context.Add(order);
             _context.SaveChanges();
+           
             foreach (var item in cart)
             {
                 OrderProducts orderProducts = new OrderProducts();
                 orderProducts.OrderID = order.ID;
                 orderProducts.ProductID = item.product.ProductID;
                 orderProducts.UserID = currentUser.UserName;
+               
                 _context.Add(orderProducts);
                 _context.SaveChanges();
+            }
+            if (!string.IsNullOrEmpty(emailto))
+            {
+                MimeMessage ms = new MimeMessage();
+                MailboxAddress from = new MailboxAddress("Admin", currentUser.Email);
+                ms.From.Add(from);
+                MailboxAddress to = new MailboxAddress("User", emailto);
+                ms.To.Add(to);
+                ms.Subject = "Message From : " + currentUser.Email;
+                BodyBuilder bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = message;
+                ms.Body = bodyBuilder.ToMessageBody();
+                SmtpClient client = new SmtpClient();
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("nguyennhanlovemyself@gmail.com", "lpnfwtgayamgywyd");
+                client.Send(ms);
+                client.Disconnect(true);
+                client.Dispose();
             }
             var session = _httpContextAccessor.HttpContext.Session;
             session.Remove(CARTKEY);

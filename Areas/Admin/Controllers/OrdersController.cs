@@ -23,9 +23,26 @@ namespace JavaFloral.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string telephone,int status)
         {
-            return View(await _context.Orders.ToListAsync());
+            var orders = await _context.Orders.OrderByDescending(o => o.Status == 1).OrderByDescending(b => b.CreateAt).ToListAsync();
+
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                orders = await _context.Orders.Where(b => b.telephone.Contains(telephone)).ToListAsync();
+
+            }
+            if (status != 0)
+            {
+                orders = await _context.Orders.Where(b => b.Status == status).ToListAsync();
+
+            }
+          /*  if (paymenttype != 0)
+            {
+                orders = await _context.Orders.Where(b => b.paymenttype == paymenttype).ToListAsync();
+            }*/
+
+            return View(orders);
         }
 
         // GET: Admin/Orders/Details/5
@@ -37,6 +54,8 @@ namespace JavaFloral.Areas.Admin.Controllers
             }
 
             var orders = await _context.Orders
+                .Include(op => op.OrderProducts)
+                .ThenInclude(p => p.Products)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (orders == null)
             {
@@ -89,7 +108,7 @@ namespace JavaFloral.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,OrderName,CreateAt,UpdateAt,Status,GrandTotal,UserID")] Orders orders)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,OrderName,CreateAt,UpdateAt,Status,GrandTotal,UserID,telephone,message,address,paymenttype")] Orders orders)
         {
             if (id != orders.ID)
             {

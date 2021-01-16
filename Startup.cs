@@ -74,7 +74,7 @@ namespace JavaFloral
                 endpoints.MapAreaControllerRoute(
                 name: "Admin",
                 areaName: "Admin",
-                pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+                pattern: "f6374c2e9ec79e72b4cbd5e92b59a801/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=HomeClient}/{action=Index}/{id?}");

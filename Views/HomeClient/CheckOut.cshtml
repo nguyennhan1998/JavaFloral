@@ -62,249 +62,75 @@
 
 
 
+                   
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h5 class="panel-title"><span>1.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-1">Checkout method</a></h5>
-                            </div>
-                            <div id="payment-1" class="panel-collapse collapse show">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-lg-5">
-                                            <div class="checkout-register">
-                                                <div class="title-wrap">
-                                                    <h4 class="cart-bottom-title section-bg-white">CHECKOUT AS A GUEST OR REGISTER</h4>
-                                                </div>
-                                                <div class="register-us">
-                                                    <ul>
-                                                        <li><input type="checkbox"> Checkout as Guest</li>
-                                                        <li><input type="checkbox"> Register</li>
-                                                    </ul>
-                                                </div>
-                                                <h6>REGISTER AND SAVE TIME!</h6>
-                                                <div class="register-us-2">
-                                                    <p>Register with us for future convenience.</p>
-                                                    <ul>
-                                                        <li>Fast and easy checkout</li>
-                                                        <li>Easy access to your order history and status</li>
-                                                    </ul>
-                                                </div>
-                                                <a href="#">Apply Coupon</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-7">
-                                            <div class="checkout-login">
-                                                <div class="title-wrap">
-                                                    <h4 class="cart-bottom-title section-bg-white">LOGIN</h4>
-                                                </div>
-                                                <p>Already have an account? </p>
-                                                <span>Please log in below:</span>
-                                                <form>
-                                                    <div class="login-form">
-                                                        <label>Email Address * </label>
-                                                        <input type="email" name="email">
-                                                    </div>
-                                                    <div class="login-form">
-                                                        <label>Password *</label>
-                                                        <input type="password" name="email">
-                                                    </div>
-                                                </form>
-                                                <div class="login-forget">
-                                                    <a href="#">Forgot your password?</a>
-                                                    <p>* Required Fields</p>
-                                                </div>
-                                                <div class="checkout-login-btn">
-                                                    <a href="#">Login</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h5 class="panel-title"><span>2.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-2">billing information</a></h5>
+                                <h5 class="panel-title"><span>1.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-2">billing information</a></h5>
                             </div>
                             <div id="payment-2" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <div class="billing-information-wrapper">
+                                    <div class="billing-information-wrapper" id="billinginfo">
                                         <div class="row">
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="billing-info">
-                                                    <label>First Name</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="billing-info">
-                                                    <label>Last Name</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="billing-info">
-                                                    <label>Company</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
+
+
+                                            <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>Email Address</label>
-                                                    <input type="email">
+                                                    <input  type="email">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>Address</label>
-                                                    <input type="text">
+                                                    <input required name="address" type="text">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="billing-info">
-                                                    <label>city</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="billing-info">
-                                                    <label>State/Province</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="billing-info">
-                                                    <label>Zip/Postal Code</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="billing-select">
-                                                    <label>Country</label>
-                                                    <select>
-                                                        <option value="1">United State</option>
-                                                        <option value="2">Azerbaijan</option>
-                                                        <option value="3">Bahamas</option>
-                                                        <option value="4">Bahrain</option>
-                                                        <option value="5">Bangladesh</option>
-                                                        <option value="6">Barbados</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
+                                            <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>Telephone</label>
-                                                    <input type="text">
+                                                    <input required name="telephone" type="text">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6">
+                                            <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
-                                                    <label>Fax</label>
-                                                    <input type="text">
+                                                    <label>Message</label>
+                                                    <textarea  name="message" placeholder="give a message"></textarea>
                                                 </div>
+
                                             </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info">
+                                                    <label>Message to email : </label>
+                                                    <input  type="email" name="emailto" class="form-control" placeholder="send a message to"></input>
+                                                </div>
+
+                                            </div>
+
+
+
                                         </div>
-                                        <div class="ship-wrapper">
-                                            <div class="single-ship">
-                                                <input type="radio" name="address" value="address" checked="">
-                                                <label>Ship to this address</label>
-                                            </div>
-                                            <div class="single-ship">
-                                                <input type="radio" name="address" value="dadress">
-                                                <label>Ship to different address</label>
-                                            </div>
-                                        </div>
-                                        <div class="billing-back-btn">
-                                            <div class="billing-back">
-                                                <a href="#"><i class="ion-arrow-up-c"></i> back</a>
-                                            </div>
-                                            <div class="billing-btn">
-                                                <button type="submit">Get a Quote</button>
-                                            </div>
-                                        </div>
+                                       
+                                     
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    
+                    
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h5 class="panel-title"><span>3.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-3">shipping information</a></h5>
-                            </div>
-                            <div id="payment-3" class="panel-collapse collapse ">
-                                <div class="panel-body">
-                                    <div class="shipping-information-wrapper">
-                                        <div class="shipping-info-2">
-                                            <span>HasTech</span>
-                                            <span>Bonosrie</span>
-                                            <span>D - Block</span>
-                                            <span>Dkaka, 1201</span>
-                                            <span>Bangladesh</span>
-                                            <span>T: +8800 879 9876 </span>
-                                        </div>
-                                        <div class="edit-address">
-                                            <a href="#">Edit Address</a>
-                                        </div>
-                                        <div class="billing-select">
-                                            <select class="email s-email s-wid">
-                                                <option>Select Your Address</option>
-                                                <option>Add New Address</option>
-                                                <option>Dkaka, 1201, Bangladesh</option>
-                                            </select>
-                                        </div>
-                                        <div class="ship-wrapper">
-                                            <div class="single-ship">
-                                                <input type="checkbox" checked="" value="address" name="address">
-                                                <label>Use Billing Address</label>
-                                            </div>
-                                        </div>
-                                        <div class="billing-back-btn">
-                                            <div class="billing-back">
-                                                <a href="#"><i class="ion-arrow-up-c"></i> back</a>
-                                            </div>
-                                            <div class="billing-btn">
-                                                <button type="submit">Continue</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h5 class="panel-title"><span>4.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-4">Shipping method</a></h5>
-                            </div>
-                            <div id="payment-4" class="panel-collapse collapse ">
-                                <div class="panel-body">
-                                    <div class="shipping-method-wrapper">
-                                        <div class="shipping-method">
-                                            <p>Flat Rate</p>
-                                            <p>Fixed $40.00</p>
-                                        </div>
-                                        <div class="billing-back-btn">
-                                            <div class="billing-back">
-                                                <a href="#"><i class="ion-arrow-up-c"></i> back</a>
-                                            </div>
-                                            <div class="billing-btn">
-                                                <button type="submit">Continue</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h5 class="panel-title"><span>5.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-5">payment information</a></h5>
+                                <h5 class="panel-title"><span>2.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-5">payment information</a></h5>
                             </div>
                             <div id="payment-5" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="payment-info-wrapper">
                                         <div class="ship-wrapper">
                                             <div class="single-ship">
-                                                <input type="radio" checked="" value="address" name="address">
+                                                <input name="paymenttype" value="1" type="radio" checked="">
                                                 <label>Check / Money order </label>
                                             </div>
                                             <div class="single-ship">
-                                                <input type="radio" value="dadress" name="address">
+                                                <input type="radio"  value="2" name="paymenttype">
                                                 <label>Credit Card (saved) </label>
                                             </div>
                                         </div>
@@ -399,7 +225,7 @@
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h5 class="panel-title"><span>6.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-6">Order review</a></h5>
+                                <h5 class="panel-title"><span>3.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-6">Order review</a></h5>
                             </div>
                             <div id="payment-6" class="panel-collapse collapse">
                                 <div class="panel-body">
@@ -497,12 +323,23 @@
 </div>
 <script type="text/javascript">
     function checkout() {
-
+        var address = $('#billinginfo input[name=address]').val();
+        var message = $('#billinginfo textarea[name=message]').val();
+        var emailto = $('#billinginfo input[name=emailto]').val();
+        var telephone = $('#billinginfo input[name=telephone]').val();
+        var paymenttype = $('#payment-5 input[name=paymenttype]:checked').val();
+        console.log(paymenttype);
         $.ajax({
             type: 'POST',
             dataType: 'JSON',
             url: '@Url.Action("SaveOrder")',
-            data: { },
+            data: { 
+                address: address,
+                message: message,
+                paymenttype: parseInt(paymenttype),
+                telephone: telephone,
+                emailto: emailto,
+            },
             success:
             function (response) {
             if (response.status == "true") {

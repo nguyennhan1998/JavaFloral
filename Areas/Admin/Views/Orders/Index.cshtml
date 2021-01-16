@@ -7,10 +7,47 @@
 <div class="row">
     <div class="col-sm-12">
         <section class="card">
+        
+            <div class="card-body">
+                <form asp-action="Index" asp-controller="Orders" asp-area="admin">
+    
+                    <div class="form-row">
+                        <div class="col-md-2">
+                            <label for="validationCustom03">Telephone</label>
+                            <input type="text" class="form-control" name="telephone" placeholder="telephone">
+
+                        </div>
+                        <div class="col-md-3">
+                            <label for="validationCustom04">Status</label>
+                            <select name="status" class="form-control">
+                                <option value="0">Processing</option>
+                                <option value="1">Complete</option>
+                                <option value="2">Cancel</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="validationCustom04">Payment Type</label>
+                            <select name="paymenttype" class="form-control">
+                                <option value="1">Cash on delivery</option>
+                                <option value="2">Visa/BankCard</option>
+
+                            </select>
+                        </div>
+                   
+                        <div class="col-md-1">
+                            <button style="margin-top: 28px;" class="btn btn-primary" type="submit">Filter</button>
+                        </div>
+                    </div>
+                    
+                    
+                </form>
+            </div>
+        </section>
+        <section class="card">
             <header class="card-header">
                 <div class="row">
                     <div class="col-11"> List Orders </div>
-                   
+
                 </div>
 
 
@@ -21,23 +58,22 @@
                 <table class="table">
                     <thead>
                         <tr>
+
                             <th>
-                                @Html.DisplayNameFor(model => model.OrderName)
+                                Shipping Address
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreateAt)
+                                Telephone
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UpdateAt)
+                                Order Date
+                            </th>
+
+                            <th>
+                                Total Bill
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Status)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.GrandTotal)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.UserID)
+                                Order Status
                             </th>
                             <th></th>
                         </tr>
@@ -47,45 +83,45 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.OrderName)
+                                    @item.address
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CreateAt)
+                                    @item.telephone
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.UpdateAt)
+                                    @item.CreateAt
+                                </td>
+
+                                <td>
+                                    @Math.Round(item.GrandTotal) $
                                 </td>
                                 <td>
                                     @if (item.Status == 0)
                                     {
-                                        <span class="badge badge-primary label-mini">Shipping Processing</span>
+                                        <span class="badge badge-primary label-mini">Processing</span>
 
                                     }
-                                    else if (item.Status == 2)
-                                    {
-
-                                        <span class="badge badge-danger label-mini">Order Cancel</span>
-
-                                    }
-                                    else
-                                    {
+                                    @if (item.Status == 2)
+                                        { 
                                         
+                                        <span class="badge badge-danger label-mini">Cancel</span>
+
+                                    }
+                                    @if (item.Status == 1)
+                                    {
+
                                         <span class="badge badge-success label-mini">Success</span>
                                     }
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.GrandTotal)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserID)
-                                </td>
+
+
                                 <td>
                                     <a class="btn btn-danger  btn-xs" asp-area="admin" asp-controller="orders" asp-action="Edit" asp-route-id="@item.ID" title="">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="orders" asp-action="Details" asp-route-id="@item.ID"  title="">
-                                            <i class="fa fa-info-circle"></i>
-                                       
+                                    <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="orders" asp-action="Details" asp-route-id="@item.ID" title="">
+                                        <i class="fa fa-info-circle"></i>
+
                                     </a>
                                 </td>
                             </tr>

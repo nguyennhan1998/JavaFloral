@@ -16,13 +16,21 @@ namespace JavaFloral.Models
 
         [Required(ErrorMessage = "The Order Name field is required"), Column(TypeName = "nvarchar(255)")]
         public string OrderName { get; set; }
-
+       
         public DateTime? CreateAt { get; set; }
 
         public DateTime? UpdateAt { get; set; }
 
         [DefaultValue(1)]
         public int Status { get; set; }
+    
+        public string address { get; set; }
+        public string message { get; set; }
+        [Display(Name ="phone number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string telephone { get; set; }
+        public int paymenttype { get; set; }
 
         public decimal GrandTotal { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]

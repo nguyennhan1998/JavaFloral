@@ -4,14 +4,16 @@ using JavaFloral.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JavaFloral.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210114145034_update-orders-field")]
+    partial class updateordersfield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,9 +130,6 @@ namespace JavaFloral.Data.Migrations
 
                     b.Property<string>("message")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("paymenttype")
-                        .HasColumnType("int");
 
                     b.Property<string>("telephone")
                         .HasColumnType("nvarchar(max)");
