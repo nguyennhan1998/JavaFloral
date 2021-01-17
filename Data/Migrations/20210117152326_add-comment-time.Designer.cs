@@ -4,44 +4,22 @@ using JavaFloral.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JavaFloral.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210117152326_add-comment-time")]
+    partial class addcommenttime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("JavaFloral.Models.Answer", b =>
-                {
-                    b.Property<int>("AnswerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AnswerTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AnswerID");
-
-                    b.ToTable("Answers");
-                });
 
             modelBuilder.Entity("JavaFloral.Models.Blog", b =>
                 {
@@ -125,21 +103,6 @@ namespace JavaFloral.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("JavaFloral.Models.CommentAnswer", b =>
-                {
-                    b.Property<int>("CommentID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AnswerID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CommentID", "AnswerID");
-
-                    b.HasIndex("AnswerID");
-
-                    b.ToTable("CommentAnswers");
-                });
-
             modelBuilder.Entity("JavaFloral.Models.CommentProduct", b =>
                 {
                     b.Property<int>("CommentID")
@@ -196,9 +159,6 @@ namespace JavaFloral.Data.Migrations
                     b.Property<string>("OrderName")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("ReceivedDate")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -469,21 +429,6 @@ namespace JavaFloral.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("JavaFloral.Models.CommentAnswer", b =>
-                {
-                    b.HasOne("JavaFloral.Models.Answer", "Answer")
-                        .WithMany("CommentAnswers")
-                        .HasForeignKey("AnswerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JavaFloral.Models.Comment", "Comment")
-                        .WithMany("CommentAnswers")
-                        .HasForeignKey("CommentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("JavaFloral.Models.CommentProduct", b =>

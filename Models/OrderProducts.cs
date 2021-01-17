@@ -12,6 +12,8 @@ namespace JavaFloral.Models
         public Product Products { get; set; }
         public int ProductID { get; set; }
         public int OrderID { get; set; }
+
+        public int quantity { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required(AllowEmptyStrings = true)]
         public string UserID { get; set; }

@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="product-content text-center">
                                             <h4>
-                                                <a href="product-details.html">@product.Name</a>
+                                                <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@product.ProductID">@product.Name</a>
                                             </h4>
                                             <div class="product-price-wrapper">
                                                 <span>$@product.Price </span>
@@ -178,29 +178,8 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="shop-widget mt-40 shop-sidebar-border pt-35">
-                        <h4 class="shop-sidebar-title">Compare Products</h4>
-                        <div class="compare-product">
-                            <p>You have no item to compare. </p>
-                            <div class="compare-product-btn">
-                                <span>Clear all </span>
-                                <a href="#">Compare <i class="fa fa-check"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-widget mt-40 shop-sidebar-border pt-35">
-                        <h4 class="shop-sidebar-title">Popular Tags</h4>
-                        <div class="shop-tags mt-25">
-                            <ul>
-                                <li><a href="#">Bouquet</a></li>
-                                <li><a href="#">Event</a></li>
-                                <li><a href="#">Gift</a></li>
-                                <li><a href="#">Joy</a></li>
-                                <li><a href="#">Love </a></li>
-                                <li><a href="#">Special</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                 
+             
                 </div>
             </div>
         </div>

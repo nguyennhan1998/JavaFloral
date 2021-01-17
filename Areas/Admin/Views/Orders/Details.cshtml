@@ -45,6 +45,12 @@
                         @Model.CreateAt
                     </dd>
                     <dt class="col-sm-2">
+                        ReceivedDate :
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.ReceivedDate
+                    </dd>
+                    <dt class="col-sm-2">
                         Payment Type :
                     </dt>
                     <dd class="col-sm-10">
@@ -61,7 +67,7 @@
                         Orders Status :
                     </dt>
                     <dd class="col-sm-10">
-                        @if (Model.Status == 0)
+                        @if (Model.Status == 3)
                         {
                             <span>Shipping Processing</span>
                         }
@@ -69,7 +75,7 @@
                         {
                             <span>Complete</span>
                         }
-                        @if(Model.Status == 2)
+                        @if (Model.Status == 2)
                         {
                             <span>Cancel</span>
                         }
@@ -118,7 +124,13 @@
                                         @item.Products.Name
                                     </td>
                                     <td>
+                                        @item.quantity
+                                    </td>
+                                    <td>
                                         @item.Products.Price
+                                    </td>
+                                    <td>
+                                        @(item.quantity * item.Products.Price)
                                     </td>
 
 

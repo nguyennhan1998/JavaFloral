@@ -22,7 +22,7 @@ namespace JavaFloral.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<IdentityUser> _userManager;
         // GET: HomeClientController
-        public HomeClientController(UserManager<IdentityUser> userManager,ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public HomeClientController(UserManager<IdentityUser> userManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
@@ -33,7 +33,7 @@ namespace JavaFloral.Controllers
             var vm = new ProductListViewModel();
             vm.Categories = _context.Categories.ToList();
             vm.Products = _context.Products.Where(p => p.CategoryID == id).OrderByDescending(b => b.Created_at).ToList();
-            
+
             return View(vm);
         }
 
@@ -105,9 +105,9 @@ namespace JavaFloral.Controllers
                 return View();
             }
         }
-        public ActionResult Product(int id,string color,string soft)
+        public ActionResult Product(int id, string color, string soft)
         {
-          
+
             var pvm = new ProductListViewModel();
             pvm.Categories = _context.Categories.ToList();
             pvm.Products = _context.Products.ToList();
@@ -120,7 +120,7 @@ namespace JavaFloral.Controllers
             {
                 pvm.Products = _context.Products.Where(b => b.Color.ToLower().Contains(color.ToLower())).ToList();
             }
-            if(!string.IsNullOrEmpty(soft) && soft.Equals("Name"))
+            if (!string.IsNullOrEmpty(soft) && soft.Equals("Name"))
             {
                 pvm.Products = _context.Products.OrderByDescending(p => p.Name).ToList();
 
@@ -159,14 +159,14 @@ namespace JavaFloral.Controllers
             var cartitem = cart.Find(p => p.product.ProductID == id);
             if (cartitem != null)
             {
-             
+
                 cart.Remove(cartitem);
             }
 
             SaveCartSession(cart);
             return RedirectToAction(nameof(CartPage));
         }
-        public IActionResult UpdateCart(int productid,int quantity)
+        public IActionResult UpdateCart(int productid, int quantity)
         {
             // Cập nhật Cart thay đổi số lượng quantity ...
             var cart = GetCartItems();
@@ -192,7 +192,7 @@ namespace JavaFloral.Controllers
             {
                 return JsonConvert.DeserializeObject<List<Cart>>(jsoncart);
             }
-        
+
             return new List<Cart>();
         }
 
@@ -215,7 +215,7 @@ namespace JavaFloral.Controllers
             var session = _httpContextAccessor.HttpContext.Session;
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
-        
+
         }
         public IActionResult CartPage()
         {
@@ -223,16 +223,16 @@ namespace JavaFloral.Controllers
             session.GetString(CARTKEY);
             return View(GetCartItems());
         }
-        public IActionResult AddToCart(int id) { 
-   
-     
+        public IActionResult AddToCart(int id) {
+
+
             var product = _context.Products.Where(p => p.ProductID == id).FirstOrDefault();
             if (product == null)
                 return NotFound("Không có sản phẩm");
 
             // Xử lý đưa vào Cart ...
             var cart = GetCartItems();
-            var cartitem = cart.Find(p => p.product.ProductID == id );
+            var cartitem = cart.Find(p => p.product.ProductID == id);
             if (cartitem != null)
             {
                 // Đã tồn tại, tăng thêm 1
@@ -248,7 +248,7 @@ namespace JavaFloral.Controllers
             SaveCartSession(cart);
             // Chuyển đến trang hiện thị Cart
 
-            return Json(new { status = "true"});
+            return Json(new { status = "true" });
 
         }
         [Authorize]
@@ -264,14 +264,14 @@ namespace JavaFloral.Controllers
 
             return View(cvm);
         }
-      
-        public async Task<ActionResult> SaveOrder(string address,string message,int paymenttype,string telephone,string emailto)
+
+        public async Task<ActionResult> SaveOrder(string receiveddate, string name, string address, string message, int paymenttype, string telephone, string emailto)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
             var cart = GetCartItems();
             decimal grandTotal = 0;
-            foreach(var item in cart)
+            foreach (var item in cart)
             {
                 var total = item.quantity * item.product.Price;
                 grandTotal += total;
@@ -281,27 +281,32 @@ namespace JavaFloral.Controllers
             Orders order = new Orders
             {
                 OrderName = currentUser.UserName,
-                Status = 0,
+                Name = !string.IsNullOrEmpty(name) ? name : "",
+                Status = 3,
                 GrandTotal = grandTotal,
                 CreateAt = DateTime.Now,
                 UserID = currentUser.UserName,
+                ReceivedDate = receiveddate,
                 address = !string.IsNullOrEmpty(address) ? address : "",
                 message = !string.IsNullOrEmpty(message) ? message : "",
                 telephone = !string.IsNullOrEmpty(telephone) ? telephone : "",
                 paymenttype = paymenttype != 0 ? paymenttype : 2
-                };
+
+            };
             _context.Add(order);
             _context.SaveChanges();
-           
+
             foreach (var item in cart)
             {
                 OrderProducts orderProducts = new OrderProducts();
                 orderProducts.OrderID = order.ID;
                 orderProducts.ProductID = item.product.ProductID;
                 orderProducts.UserID = currentUser.UserName;
-               
+                orderProducts.quantity = item.quantity;
+
                 _context.Add(orderProducts);
                 _context.SaveChanges();
+             
             }
             if (!string.IsNullOrEmpty(emailto))
             {
@@ -323,7 +328,9 @@ namespace JavaFloral.Controllers
             }
             var session = _httpContextAccessor.HttpContext.Session;
             session.Remove(CARTKEY);
+
             return Json(new { status = "true" });
+            return RedirectToAction(nameof(Index));
         }
         public ActionResult LoginRegister()
         {
@@ -337,13 +344,85 @@ namespace JavaFloral.Controllers
         }
         public ActionResult ProductDetail(int id)
         {
-            var product = _context.Products.Where(c => c.ProductID == id).FirstOrDefault();
+            var product = _context.Products
+                .Include(cp => cp.CommentProducts)
+                .ThenInclude(cp => cp.Comment)
+                .ThenInclude(ca => ca.CommentAnswers)
+                .ThenInclude(ca => ca.Answer)
+                .
+
+
+           Where(c => c.ProductID == id).FirstOrDefault();
             return View(product);
         }
         public ActionResult WishList()
         {
 
             return View();
+        }
+        [HttpPost]
+        
+        public async Task<ActionResult> Comment(int productID,string message)
+        {
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+            if (!string.IsNullOrEmpty(message))
+            {
+                Comment comment = new Comment()
+                {
+                    Message = message,
+                    Status = 1,
+                    UserID = currentUser.UserName,
+                    CommentTime = DateTime.Now,
+
+                };
+                _context.Add(comment);
+                _context.SaveChanges();
+                CommentProduct commentProduct = new CommentProduct()
+                {
+                    CommentID = comment.CommentID,
+                    ProductID = productID,
+
+                };
+                _context.Add(commentProduct);
+                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+
+            }
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public async Task<ActionResult> Answer(int CommentID, string message)
+        {
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+            if (!string.IsNullOrEmpty(message))
+            {
+                Answer answer = new Answer()
+                {
+                    Message = message,
+                    Status = 1,
+                    UserID = currentUser.UserName,
+                    AnswerTime = DateTime.Now,
+                    
+
+                };
+                _context.Add(answer);
+                _context.SaveChanges();
+                CommentAnswer commentAnswer = new CommentAnswer()
+                {
+                    AnswerID = answer.AnswerID,
+                    CommentID = CommentID,
+
+                };
+                _context.Add(commentAnswer);
+                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+
+            }
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
 

@@ -20,7 +20,7 @@
                         <div class="col-md-3">
                             <label for="validationCustom04">Status</label>
                             <select name="status" class="form-control">
-                                <option value="0">Processing</option>
+                                <option value="3">Processing</option>
                                 <option value="1">Complete</option>
                                 <option value="2">Cancel</option>
                             </select>
@@ -58,7 +58,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-
+                            <td>Customer Name</td>
                             <th>
                                 Shipping Address
                             </th>
@@ -81,50 +81,53 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @item.address
-                                </td>
-                                <td>
-                                    @item.telephone
-                                </td>
-                                <td>
-                                    @item.CreateAt
-                                </td>
+                        <tr>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.address
+                            </td>
+                            <td>
+                                @item.telephone
+                            </td>
+                            <td>
+                                @item.CreateAt
+                            </td>
 
-                                <td>
-                                    @Math.Round(item.GrandTotal) $
-                                </td>
-                                <td>
-                                    @if (item.Status == 0)
-                                    {
-                                        <span class="badge badge-primary label-mini">Processing</span>
+                            <td>
+                                @Math.Round(item.GrandTotal) $
+                            </td>
+                            <td>
+                                @if (item.Status == 3)
+                                {
+                                    <span class="badge badge-primary label-mini">Processing</span>
 
-                                    }
-                                    @if (item.Status == 2)
-                                        { 
-                                        
-                                        <span class="badge badge-danger label-mini">Cancel</span>
+                                }
+                                @if (item.Status == 2)
+                                {
 
-                                    }
-                                    @if (item.Status == 1)
-                                    {
+                                    <span class="badge badge-danger label-mini">Cancel</span>
 
-                                        <span class="badge badge-success label-mini">Success</span>
-                                    }
-                                </td>
+                                }
+                                @if (item.Status == 1)
+                                {
+
+                                    <span class="badge badge-success label-mini">Success</span>
+                                }
+                            </td>
 
 
-                                <td>
-                                    <a class="btn btn-danger  btn-xs" asp-area="admin" asp-controller="orders" asp-action="Edit" asp-route-id="@item.ID" title="">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="orders" asp-action="Details" asp-route-id="@item.ID" title="">
-                                        <i class="fa fa-info-circle"></i>
+                            <td>
+                                <a class="btn btn-danger  btn-xs" asp-area="admin" asp-controller="orders" asp-action="Edit" asp-route-id="@item.ID" title="">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="orders" asp-action="Details" asp-route-id="@item.ID" title="">
+                                    <i class="fa fa-info-circle"></i>
 
-                                    </a>
-                                </td>
-                            </tr>
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

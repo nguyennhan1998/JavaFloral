@@ -16,10 +16,12 @@ namespace JavaFloral.Models
 
         [Required(ErrorMessage = "The Order Name field is required"), Column(TypeName = "nvarchar(255)")]
         public string OrderName { get; set; }
+        public string Name { get; set; }
        
         public DateTime? CreateAt { get; set; }
 
         public DateTime? UpdateAt { get; set; }
+        public string ReceivedDate { get; set; }
 
         [DefaultValue(1)]
         public int Status { get; set; }

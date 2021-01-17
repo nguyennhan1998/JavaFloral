@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="~/ClientFile/assets/css/meanmenu.min.css">
     <link rel="stylesheet" href="~/ClientFile/assets/css/style.css">
     <link rel="stylesheet" href="~/ClientFile/assets/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
     <script src="~/ClientFile/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
@@ -34,7 +35,7 @@
                 <div class="border-bottom-1">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-12">
-                         
+
                         </div>
                         <div class="col-lg-8 col-md-8 col-12">
                             <div class="account-curr-lang-wrap f-right">
@@ -42,10 +43,10 @@
                                 <ul>
 
                                     <li class="top-hover">
-                                     
+
                                         <partial name="_LoginPartial" />
                                     </li>
-                             
+
                                 </ul>
                             </div>
                         </div>
@@ -129,7 +130,7 @@
                                             <a asp-action="Blog" asp-controller="HomeClient">blog</a>
 
                                         </li>
-                                    
+
                                         <li><a asp-action="Contact" asp-controller="HomeClient">contact</a></li>
                                     </ul>
                                 </nav>
@@ -145,44 +146,44 @@
                                         @*        <span>$0.00</span>*@
                                     </div>
                                 </a>
-                            @*    <div class="shopping-cart-content">
-                                    <ul>
-                                        @if (Model.Count > 0)
-                                        {
-                                            decimal total = 0;
-                                            @foreach (var item in Model)
+                                @*    <div class="shopping-cart-content">
+                                        <ul>
+                                            @if (Model.Count > 0)
+                                            {
+                                                decimal total = 0;
+                                                @foreach (var item in Model)
+                                                {
+                                                    <li class="single-shopping-cart">
+                                                        <div class="shopping-cart-img">
+                                                            <img alt="" src="~/images/@item.product.ProductImage">
+                                                        </div>
+                                                        <div class="shopping-cart-title">
+                                                            <h4>@item.product.Name</h4>
+                                                            <h6><input asp-for="@item.quantity" id="@($"quantity-{item.product.ProductID}")" /></h6>
+                                                            <span>$@item.product.Price</span>
+                                                        </div>
+                                                        <div class="shopping-cart-delete">
+                                                            <a asp-action="RemoveCart" asp-controller="HomeClient" asp-route-id="@item.product.ProductID"><i class="ion ion-close"></i></a>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }
+                                            else
                                             {
                                                 <li class="single-shopping-cart">
-                                                    <div class="shopping-cart-img">
-                                                        <img alt="" src="~/images/@item.product.ProductImage">
-                                                    </div>
-                                                    <div class="shopping-cart-title">
-                                                        <h4>@item.product.Name</h4>
-                                                        <h6><input asp-for="@item.quantity" id="@($"quantity-{item.product.ProductID}")" /></h6>
-                                                        <span>$@item.product.Price</span>
-                                                    </div>
-                                                    <div class="shopping-cart-delete">
-                                                        <a asp-action="RemoveCart" asp-controller="HomeClient" asp-route-id="@item.product.ProductID"><i class="ion ion-close"></i></a>
-                                                    </div>
+                                                    <span>Empty Cart</span>
                                                 </li>
                                             }
-                                        }
-                                        else
-                                        {
-                                            <li class="single-shopping-cart">
-                                                <span>Empty Cart</span>
-                                            </li>
-                                        }
-                                    </ul>
-                                    <div class="shopping-cart-total">
-                                        <h4>Shipping : <span>$20.00</span></h4>
-                                        <h4>Total : <span class="shop-total">$260.00</span></h4>
-                                    </div>
-                                    <div class="shopping-cart-btn">
-                                        <a asp-action="CartPage" asp-controller="HomeClient">view cart</a>
-                                        <a asp-action="Checkout" asp-controller="HomeClient">checkout</a>
-                                    </div>
-                                </div>*@
+                                        </ul>
+                                        <div class="shopping-cart-total">
+                                            <h4>Shipping : <span>$20.00</span></h4>
+                                            <h4>Total : <span class="shop-total">$260.00</span></h4>
+                                        </div>
+                                        <div class="shopping-cart-btn">
+                                            <a asp-action="CartPage" asp-controller="HomeClient">view cart</a>
+                                            <a asp-action="Checkout" asp-controller="HomeClient">checkout</a>
+                                        </div>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -340,7 +341,7 @@
                             <div class="footer-content">
                                 <ul>
                                     <li><a asp-controller="HomeClient" asp-action="AboutUs">About Us</a></li>
-                                    <li><a  href="#">Delivery Information</a></li>
+                                    <li><a href="#">Delivery Information</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Terms & Conditions</a></li>
                                     <li><a href="#">Customer Service</a></li>
@@ -498,6 +499,8 @@
     <script src="~/ClientFile/assets/js/owl.carousel.min.js"></script>
     <script src="~/ClientFile/assets/js/plugins.js"></script>
     <script src="~/ClientFile/assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 
