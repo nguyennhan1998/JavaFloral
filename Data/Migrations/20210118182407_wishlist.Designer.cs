@@ -4,14 +4,16 @@ using JavaFloral.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JavaFloral.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210118182407_wishlist")]
+    partial class wishlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,9 +279,14 @@ namespace JavaFloral.Data.Migrations
                     b.Property<DateTime>("Updated_at")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("WishListID")
+                        .HasColumnType("int");
+
                     b.HasKey("ProductID");
 
                     b.HasIndex("CategoryID");
+
+                    b.HasIndex("WishListID");
 
                     b.ToTable("Products");
                 });
@@ -291,15 +298,10 @@ namespace JavaFloral.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ProductID")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WishListID");
-
-                    b.HasIndex("ProductID");
 
                     b.ToTable("WishLists");
                 });
@@ -552,13 +554,10 @@ namespace JavaFloral.Data.Migrations
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("JavaFloral.Models.WishList", b =>
-                {
-                    b.HasOne("JavaFloral.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID");
+                    b.HasOne("JavaFloral.Models.WishList", null)
+                        .WithMany("Products")
+                        .HasForeignKey("WishListID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

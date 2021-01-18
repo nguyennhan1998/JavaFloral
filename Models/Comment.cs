@@ -9,6 +9,7 @@ namespace JavaFloral.Models
     {
         public int CommentID { get; set; }
         public string Message { get; set; }
+        public int rating { get; set; }
         public string UserID { get; set; }
         public DateTime CommentTime { get; set; }
         public int Status { get; set; }

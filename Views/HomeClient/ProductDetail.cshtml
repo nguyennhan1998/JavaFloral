@@ -1,8 +1,97 @@
-﻿@model JavaFloral.Models.Product
+﻿@model JavaFloral.Models.ProductDetailViewModel
+
 @{
     ViewData["Title"] = "ProductDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .rating {
+        float: left;
+    }
+
+        /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+        .rating:not(:checked) > input {
+            position: absolute;
+            top: -9999px;
+            clip: rect(0,0,0,0);
+        }
+
+        .rating:not(:checked) > label {
+            float: right;
+            width: 1em;
+            padding: 0 .1em;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 200%;
+            line-height: 1.2;
+            color: lightyellow;
+            text-shadow: 1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+        }
+
+            .rating:not(:checked) > label:before {
+                content: '★ ';
+            }
+
+        .rating > input:checked ~ label {
+            color: #f70;
+            text-shadow: 1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+        }
+
+        .rating:not(:checked) > label:hover,
+        .rating:not(:checked) > label:hover ~ label {
+            color: yellow;
+            text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+        }
+
+        .rating > input:checked + label:hover,
+        .rating > input:checked + label:hover ~ label,
+        .rating > input:checked ~ label:hover,
+        .rating > input:checked ~ label:hover ~ label,
+        .rating > label:hover ~ input:checked ~ label {
+            color: #ea0;
+            text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+        }
+
+        .rating > label:active {
+            position: relative;
+            top: 2px;
+            left: 2px;
+        }
+
+    /* end of Lea's code */
+
+    /*
+ * Clearfix from html5 boilerplate
+ */
+
+    .clearfix:before,
+    .clearfix:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
+
+    /*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+    .clearfix {
+        *zoom: 1;
+    }
+
+    /* my stuff */
+    #status, button {
+        margin: 20px 0;
+    }
+
+</style>
 <div class="breadcrumb-area gray-bg">
     <div class="container">
         <div class="breadcrumb-content">
@@ -18,7 +107,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-img">
-                    <img class="zoompro" src="~/images/@Model.ProductImage" data-zoom-image="~/images/@Model.ProductImage" alt="zoom" />
+                    <img class="zoompro" src="~/images/@Model.product.ProductImage" data-zoom-image="~/images/@Model.product.ProductImage" alt="zoom" />
                     <div id="gallery" class="mt-20 product-dec-slider owl-carousel">
                         <a data-image="~/ClientFile/assets/img/product-details/product-detalis-l1.jpg" data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg">
                             <img src="~/ClientFile/assets/img/product-details/product-detalis-s1.jpg" alt="">
@@ -39,12 +128,16 @@
                             <img src="~/ClientFile/assets/img/product-details/product-detalis-s2.jpg" alt="">
                         </a>
                     </div>
-                    <span>-29%</span>
+                    @if (Model.product.Discount > 0)
+                    {
+                        <span>-@Model.product.Discount%</span>
+                    }
+
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="product-details-content">
-                    <h4>@Model.Name</h4>
+                    <h4>@Model.product.Name</h4>
                     <div class="rating-review">
                         <div class="pro-dec-rating">
                             <i class="ion-android-star-outline theme-star"></i>
@@ -55,38 +148,66 @@
                         </div>
                         <div class="pro-dec-review">
                             <ul>
-                                <li>32 Reviews </li>
+                                <li>@Model.product.CommentProducts.Count() Reviews </li>
                                 <li> Add Your Reviews</li>
                             </ul>
                         </div>
                     </div>
-                    <span>$@Model.Price</span>
+                    @if (Model.product.Discount > 0)
+                    {
+                        <span style="text-decoration : line-through">$@Model.product.Price</span>
+                    }
+                    else
+                    {
+                        <span>$@Model.product.Price</span>
+                    }
+
+
+
+                    @if (Model.product.Discount > 0)
+                    {
+                        <span style="color: red">
+                            $@((Model.product.Price * Model.product.Discount)/100)
+
+                        </span>
+                    }
+
                     <div class="in-stock">
-                        <p>Available: <span>In stock</span></p>
+                        <p>Available: <span>@Model.product.Qty product</span></p>
                     </div>
-                    <p>@Model.Description</p>
+                    <p>@Model.product.Description</p>
                     <div class="pro-dec-feature">
                         <ul>
-                            <li>Color: <span> @Model.Color</span></li>
-                            <li>Smell: <span>@Model.Smell</span></li>
+                            <li>Color: <span> @Model.product.Color</span></li>
+                            <li>Smell: <span>@Model.product.Smell</span></li>
 
                         </ul>
                     </div>
                     <div class="quality-add-to-cart">
-
+                        <div class="quality">
+                            <label>Qty:</label>
+                            <input class="cart-plus-minus-box" id="qtyproduct" type="number" value="1">
+                        </div>
                         <div class="shop-list-cart-wishlist">
-                            <a title="Add To Cart" data-name="@Model.Name" data-id="@Model.ProductID" onclick="addToCart(this)"
+                            <a title="Add To Cart" data-name="@Model.product.Name" data-id="@Model.product.ProductID" onclick="addToCart(this)"
                                onMouseOver="this.style.color='#ffff'"
                                onMouseOut="this.style.color='#242424'"
                                style="cursor: pointer;">
                                 <i class="icon-handbag" style="font-size: 20px;"></i>
                             </a>
-                            <a title="Wishlist" href="#">
+                            <a title="Wishlist" onclick="addWishList(this)" data-id="@Model.product.ProductID">
                                 <i style="font-size: 20px;" class="icon-heart"></i>
                             </a>
                         </div>
                     </div>
+                    <div class="pro-dec-categories">
+                        <ul>
+                            <li class="categories-title">Categories:</li>
+                            <li><a asp-controller="HomeClient" asp-route-id="@Model.product.Category.Categoryid" asp-action="Product">@Model.product.Category.Name</a></li>
 
+
+                        </ul>
+                    </div>
                     <div class="pro-dec-social">
                         <ul>
                             <li><a class="tweet" href="#"><i class="ion-social-twitter"></i> Tweet</a></li>
@@ -105,7 +226,7 @@
         <div class="description-review-wrapper">
             <div class="description-review-topbar nav text-center">
                 <a class="active" data-toggle="tab" href="#des-details1">Description</a>
-                <a data-toggle="tab" href="#des-details2">Tags</a>
+
                 <a data-toggle="tab" href="#des-details3">Review</a>
             </div>
             <div class="tab-content description-review-bottom">
@@ -121,33 +242,21 @@
                         </ul>
                     </div>
                 </div>
-                <div id="des-details2" class="tab-pane">
-                    <div class="product-anotherinfo-wrapper">
-                        <ul>
-                            <li><span>Tags:</span></li>
-                            <li><a href="#"> bouquet,</a></li>
-                            <li><a href="#"> event,</a></li>
-                            <li><a href="#"> gift,</a></li>
-                            <li><a href="#"> joy,</a></li>
-                            <li><a href="#"> love ,</a></li>
-                            <li><a href="#"> special</a></li>
-                        </ul>
-                    </div>
-                </div>
+
                 <div id="des-details3" class="tab-pane">
                     <div class="rattings-wrapper">
-                        @foreach (var item in Model.CommentProducts)
+                        @foreach (var item in Model.product.CommentProducts)
                         {
                             <div class="sin-rattings">
                                 <div class="star-author-all">
-                                    <div class="ratting-star f-left">
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <span>(5)</span>
-                                    </div>
+                                    <fieldset class="rating">
+                                        @for (var i = 0; i < item.Comment.rating; i++)
+                                        {
+                                            <input type="radio" style="background-color : yellow !important" id="@item.Comment.rating" name="rating" value="@item.Comment.rating" /><label for="@item.Comment.rating" title="Rocks!">@item.Comment.rating stars</label>
+
+                                        }
+
+                                    </fieldset>
                                     <div class="ratting-author f-right">
                                         <h3>@item.Comment.UserID</h3>
                                         <span>@item.Comment.CommentTime.ToString("HH:mm:ss")</span>
@@ -158,26 +267,32 @@
                             </div>
                         }
 
-                        </div>
+                    </div>
                     <div class="ratting-form-wrapper">
                         <h3>Add your Comments :</h3>
                         <div class="ratting-form">
                             <form asp-action="Comment" asp-controller="HomeClient">
                                 <div class="star-box">
                                     <h2>Rating:</h2>
-                                    <div class="ratting-star">
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star"></i>
-                                    </div>
+                                    <div id="status"></div>
+                                 
+                                        <fieldset class="rating">
+                                            <legend>Please rate:</legend>
+                                            <input onchange="getStar()" type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                                            <input onchange="getStar()" type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                                            <input onchange="getStar()" type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                                            <input onchange="getStar()" type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                                            <input onchange="getStar()" type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                                        </fieldset>
+                                       
+                                     
+                                 
                                 </div>
                                 <div class="row">
-                                  
+
                                     <div class="col-md-12">
                                         <div class="rating-form-style form-submit">
-                                            <input type="hidden" name="productID" value="@Model.ProductID" />
+                                            <input type="hidden" name="productID" value="@Model.product.ProductID" />
                                             <textarea name="message" placeholder="Message"></textarea>
                                             <input type="submit" value="add review">
                                         </div>
@@ -194,64 +309,64 @@
 </div>
 @*<h4 style="margin-left: 40px" class="blog-dec-title">Comments : @Model.CommentProducts.Count()</h4>*@
 @*<div class="blog-comment-wrapper mt-55 container">
-    @foreach (var item in Model.CommentProducts)
-    {
-        <div class="single-comment-wrapper mt-35">
-          
-            <div class="blog-comment-content">
-                <h4>@item.Comment.UserID</h4>
-                <span>@item.Comment.CommentTime</span>
-                <p>@item.Comment.Message</p>
-
-            </div>
-        </div>
-        @foreach (var ans in item.Comment.CommentAnswers)
+        @foreach (var item in Model.CommentProducts)
         {
-            <div class="single-comment-wrapper mt-50 ml-125">
-                
+            <div class="single-comment-wrapper mt-35">
+
                 <div class="blog-comment-content">
-                    <h4>@ans.Answer.UserID</h4>
-                    <span>@ans.Answer.AnswerTime </span>
-                    <p>@ans.Answer.Message</p>
-                  
+                    <h4>@item.Comment.UserID</h4>
+                    <span>@item.Comment.CommentTime</span>
+                    <p>@item.Comment.Message</p>
+
                 </div>
             </div>
-        }
-<form asp-controller="HomeClient" asp-action="Answer" style="padding: 10px 0 10px 0">
-    <input type="hidden" name="CommentID" value="@item.CommentID" />
-    <div class="form-group row">
-        <div class="col-lg-6 col-md-7">
-            <input type="text" name="message" class="form-control" />
+            @foreach (var ans in item.Comment.CommentAnswers)
+            {
+                <div class="single-comment-wrapper mt-50 ml-125">
 
-        </div>
-        <div class="col-lg-6 col-md-5">
-            <button type="submit" style="padding: 20px" class="btn btn-primary"><i style="position: relative; bottom: 12px" class="fa fa-mail-reply-all"></i></button>
+                    <div class="blog-comment-content">
+                        <h4>@ans.Answer.UserID</h4>
+                        <span>@ans.Answer.AnswerTime </span>
+                        <p>@ans.Answer.Message</p>
 
-        </div>
-    </div>
-
-    
-</form>
-
-    }
-
-
-</div>
-<div class="blog-reply-wrapper mt-50 container" style="margin-bottom: 30px">
-    <h4 class="blog-dec-title">Give a comment</h4>
-    <form asp-action="Comment" asp-controller="HomeClient">
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="text-leave">
-                    <input type="hidden" name="productID" value="@Model.ProductID" />
-                    <textarea name="message" cols="10" rows="2" placeholder="Message"></textarea>
-                    <input type="submit" value="SEND MASSAGE">
+                    </div>
                 </div>
+            }
+    <form asp-controller="HomeClient" asp-action="Answer" style="padding: 10px 0 10px 0">
+        <input type="hidden" name="CommentID" value="@item.CommentID" />
+        <div class="form-group row">
+            <div class="col-lg-6 col-md-7">
+                <input type="text" name="message" class="form-control" />
+
+            </div>
+            <div class="col-lg-6 col-md-5">
+                <button type="submit" style="padding: 20px" class="btn btn-primary"><i style="position: relative; bottom: 12px" class="fa fa-mail-reply-all"></i></button>
+
             </div>
         </div>
+
+
     </form>
-</div>*@
+
+        }
+
+
+    </div>
+    <div class="blog-reply-wrapper mt-50 container" style="margin-bottom: 30px">
+        <h4 class="blog-dec-title">Give a comment</h4>
+        <form asp-action="Comment" asp-controller="HomeClient">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="text-leave">
+                        <input type="hidden" name="productID" value="@Model.ProductID" />
+                        <textarea name="message" cols="10" rows="2" placeholder="Message"></textarea>
+                        <input type="submit" value="SEND MASSAGE">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>*@
 <div class="product-area pb-70">
     <div class="container">
         <div class="product-top-bar section-border mb-35">
@@ -260,142 +375,40 @@
             </div>
         </div>
         <div class="featured-product-active hot-flower owl-carousel product-nav">
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-5.jpg">
-                    </a>
-                    <span>-30%</span>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
+            @foreach (var item in Model.RelativeProduct)
+            {
+                <div class="product-wrapper">
+                    <div class="product-img">
+                        <a href="product-details.html">
+                            <img alt="" src="~/images/@item.ProductImage">
                         </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
+                        <span>-30%</span>
+                        <div class="product-action">
+                            <a class="action-wishlist" href="#" title="Wishlist">
+                                <i class="icon-heart"></i>
+                            </a>
+                            <a data-id="@item.ProductID" data-name="@item.Name" onclick="addToCart(this)"
+                               onMouseOver="this.style.color='#ffff'"
+                               onMouseOut="this.style.color='#242424'"
+                               style="cursor: pointer;">
+                                <i class="icon-handbag"></i>
+                            </a>
+                        
+                        </div>
+                    </div>
+                    <div class="product-content text-center">
+                        <h4>
+                            <a asp-route-id="@item.ProductID" asp-controller="HomeClient" asp-action="ProductDetail">@item.Name</a>
+                        </h4>
+                        <div class="product-price-wrapper">
+                            <span>$@item.Price</span>
+                        </div>
                     </div>
                 </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Dutchman's Breeches </a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                        <span class="product-price-old">$120.00 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-6.jpg">
-                    </a>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Flowers Bouquet Pink</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-7.jpg">
-                    </a>
-                    <span>-30%</span>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Evergreen Candytuft </a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                        <span class="product-price-old">$120.00 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-8.jpg">
-                    </a>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Pearly Everlasting</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-6.jpg">
-                    </a>
-                    <span>-30%</span>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Yellow Loosestrife</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                        <span class="product-price-old">$120.00 </span>
-                    </div>
-                </div>
-            </div>
+            }
+
+
+
         </div>
     </div>
 </div>
@@ -403,15 +416,24 @@
     function addToCart(e) {
         let productID = $(e).attr("data-id");
         let productName = $(e).attr("data-name");
+        let qty = $("#qtyproduct").val();
+        console.log(qty);
         $.ajax({
             type: 'POST',
             dataType: 'JSON',
             url: '@Url.Action("AddToCart")',
-            data: { id: productID },
+            data: {
+                id: productID,
+                quantity : qty,
+
+            },
             success:
                 function (response) {
                     if (response.status == "true") {
                         alert("Add To Cart Successfully Product : " + productName)
+                    }
+                    if (response.status == "outofstock") {
+                        alert("Out of quantity please try again")
                     }
 
                 },
@@ -422,5 +444,35 @@
 
         });
     }
+    function addWishList(e) {
+        let productID = $(e).attr("data-id");
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '@Url.Action("AddWishList")',
+            data: {
+                id: productID,
+         
+
+            },
+            success:
+                function (response) {
+                    if (response.status == "true") {
+                        alert("Add To WishList Successfully");
+                    }
+                    if (response.status == "exists") {
+                        alert("Item is already in wish list");
+                    }
+                  
+
+                },
+            error:
+                function (response) {
+
+                }
+
+        });
+    }
 </script>
+
 

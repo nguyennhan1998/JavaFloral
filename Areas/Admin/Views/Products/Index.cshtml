@@ -29,9 +29,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.ProductImage)
                             </th>
-                            <th style="width:150px;">
-                                @Html.DisplayNameFor(model => model.Description)
-                            </th>
+                        
                             <th>
                                 @Html.DisplayNameFor(model => model.Color)
                             </th>
@@ -42,9 +40,12 @@
                                 @Html.DisplayNameFor(model => model.Price)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.Discount)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Smell)
                             </th>
-                           
+
                             <th>
                                 @Html.DisplayNameFor(model => model.Category)
                             </th>
@@ -54,47 +55,48 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    <img src="~/images/@item.ProductImage" style="width: 60px; height: 60px" alt="ProductImage" />
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Color)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Qty)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Price)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Smell)
-                                </td>
-                              
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Category.Name)
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger  btn-xs" asp-area="admin" asp-controller="products" asp-action="Delete" asp-route-id="@item.ProductID" data-original-title="Click to delete" title="">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                    <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="products" asp-action="Edit" asp-route-id="@item.ProductID" data-original-title="Click to edit" title="">
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <img src="~/images/@item.ProductImage" style="width: 60px; height: 60px" alt="ProductImage" />
+                            </td>
+                       
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Color)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Qty)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discount) %
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Smell)
+                            </td>
 
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-warning btn-xs" asp-area="admin" asp-controller="products" asp-action="Details" asp-route-id="@item.ProductID" data-original-title="Detail" title="">
-                                        <i class="fa fa-info"></i>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.Name)
+                            </td>
+                            <td>
+                                <a class="btn btn-danger  btn-xs" asp-area="admin" asp-controller="products" asp-action="Delete" asp-route-id="@item.ProductID" data-original-title="Click to delete" title="">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                <a class="btn btn-success btn-xs" asp-area="admin" asp-controller="products" asp-action="Edit" asp-route-id="@item.ProductID" data-original-title="Click to edit" title="">
+
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-warning btn-xs" asp-area="admin" asp-controller="products" asp-action="Details" asp-route-id="@item.ProductID" data-original-title="Detail" title="">
+                                    <i class="fa fa-info"></i>
 
 
-                                    </a>
-                                </td>
-                            </tr>
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

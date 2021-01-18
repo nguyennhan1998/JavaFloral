@@ -23,6 +23,7 @@ namespace JavaFloral.ViewModels
         public string Color { get; set; }
         [Required]
         public int Qty { get; set; }
+        public string Content { get; set; }
         [Required]
         public decimal Price { get; set; }
         [Column(TypeName = "nvarchar(50)")]
@@ -32,5 +33,6 @@ namespace JavaFloral.ViewModels
         public DateTime Created_at { get; set; }
         public DateTime Updated_at { get; set; }
         public virtual Category Category { get; set; }
+        public int Discount { get; set; }
     }
 }

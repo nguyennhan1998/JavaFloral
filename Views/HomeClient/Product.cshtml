@@ -58,14 +58,13 @@
                                             </a>
                                             <span>-30%</span>
                                             <div class="product-action">
-                                                <a class="action-wishlist" href="#" title="Wishlist">
-                                                    <i class="icon-heart"></i>
+                                                <a title="Wishlist" onclick="addWishList(this)" data-id="@product.ProductID">
+                                                    <i style="font-size: 20px;" class="icon-heart"></i>
                                                 </a>
-                                                <a data-id="@product.ProductID" data-name="@product.Name" onclick="addToCart(this)" 
+                                                <a data-id="@product.ProductID" data-name="@product.Name" onclick="addToCart(this)"
                                                    onMouseOver="this.style.color='#ffff'"
-                                                   onMouseOut="this.style.color='#242424'"  
-                                                   style="cursor: pointer;"
-                                                   >
+                                                   onMouseOut="this.style.color='#242424'"
+                                                   style="cursor: pointer;">
                                                     <i class="icon-handbag"></i>
                                                 </a>
                                                 <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
@@ -199,11 +198,43 @@
                     if (response.status == "true") {
                         alert("Add To Cart Successfully Product : " + productName)
                     }
-                
+                    if (response.status == "outofstock") {
+                        alert("Out of quantity please try again")
+                    }
+
                 },
             error:
                 function (response) {
-                  
+
+                }
+
+        });
+    }
+    function addWishList(e) {
+        let productID = $(e).attr("data-id");
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '@Url.Action("AddWishList")',
+            data: {
+                id: productID,
+
+
+            },
+            success:
+                function (response) {
+                    if (response.status == "true") {
+                        alert("Add To WishList Successfully");
+                    }
+                    if (response.status == "exists") {
+                        alert("Item is already in wish list");
+                    }
+
+
+                },
+            error:
+                function (response) {
+
                 }
 
         });

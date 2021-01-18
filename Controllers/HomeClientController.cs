@@ -223,10 +223,19 @@ namespace JavaFloral.Controllers
             session.GetString(CARTKEY);
             return View(GetCartItems());
         }
-        public IActionResult AddToCart(int id) {
-
+        public IActionResult AddToCart(int id,int quantity) {
+         
 
             var product = _context.Products.Where(p => p.ProductID == id).FirstOrDefault();
+            if(quantity == 0)
+            {
+                quantity = 1;
+            }
+            if(product.Qty < quantity)
+            {
+                return Json(new { status = "outofstock" });
+            }
+            
             if (product == null)
                 return NotFound("Không có sản phẩm");
 
@@ -235,17 +244,23 @@ namespace JavaFloral.Controllers
             var cartitem = cart.Find(p => p.product.ProductID == id);
             if (cartitem != null)
             {
-                // Đã tồn tại, tăng thêm 1
-                cartitem.quantity++;
+                if(quantity != 0)
+                {
+                    cartitem.quantity += quantity;
+                }
+              
+             
             }
             else
             {
                 //  Thêm mới
-                cart.Add(new Cart() { quantity = 1, product = product });
+                cart.Add(new Cart() { quantity = quantity, product = product });
             }
 
             // Lưu cart vào Session
             SaveCartSession(cart);
+
+            Console.WriteLine(JsonConvert.SerializeObject(cart));
             // Chuyển đến trang hiện thị Cart
 
             return Json(new { status = "true" });
@@ -270,6 +285,7 @@ namespace JavaFloral.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
             var cart = GetCartItems();
+        
             decimal grandTotal = 0;
             foreach (var item in cart)
             {
@@ -306,7 +322,11 @@ namespace JavaFloral.Controllers
 
                 _context.Add(orderProducts);
                 _context.SaveChanges();
-             
+                var product = _context.Products.Where(p => p.ProductID == item.product.ProductID).FirstOrDefault();
+                product.Qty -= item.quantity;
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+
             }
             if (!string.IsNullOrEmpty(emailto))
             {
@@ -325,12 +345,13 @@ namespace JavaFloral.Controllers
                 client.Send(ms);
                 client.Disconnect(true);
                 client.Dispose();
+                
             }
             var session = _httpContextAccessor.HttpContext.Session;
             session.Remove(CARTKEY);
-
+            
             return Json(new { status = "true" });
-            return RedirectToAction(nameof(Index));
+           
         }
         public ActionResult LoginRegister()
         {
@@ -345,24 +366,71 @@ namespace JavaFloral.Controllers
         public ActionResult ProductDetail(int id)
         {
             var product = _context.Products
-                .Include(cp => cp.CommentProducts)
-                .ThenInclude(cp => cp.Comment)
-                .ThenInclude(ca => ca.CommentAnswers)
-                .ThenInclude(ca => ca.Answer)
-                .
-
-
-           Where(c => c.ProductID == id).FirstOrDefault();
-            return View(product);
+            .Include(c => c.Category)
+            .Include(cp => cp.CommentProducts)
+            .ThenInclude(cp => cp.Comment)
+            .ThenInclude(ca => ca.CommentAnswers)
+            .ThenInclude(ca => ca.Answer)
+            .Where(c => c.ProductID == id).FirstOrDefault();  
+                var vm = new ProductDetailViewModel();
+                vm.product = product;
+                vm.RelativeProduct = _context.Products.Where(p => p.CategoryID == product.CategoryID).Where(p => p.ProductID != product.ProductID).ToList();
+                
+            return View(vm);
         }
-        public ActionResult WishList()
+        [HttpPost]
+        public async Task<ActionResult> AddWishList(int id)
         {
+            Console.WriteLine(id);
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+            if(id != 0)
+            {
+                if (_context.WishLists.Any(w => w.Product.ProductID == id && w.UserID.Equals(currentUser.Id)))
+                {
+                    return Json(new { status = "exists" });
 
-            return View();
+                }
+                var product = _context.Products.Where(p => p.ProductID == id).FirstOrDefault();
+
+                var wishlist = new WishList();
+                wishlist.Product = product;
+                wishlist.UserID = currentUser.Id;
+                _context.Add(wishlist);
+                await _context.SaveChangesAsync();
+            }
+            
+
+            return Json(new { status = "true" });
+        }
+        public async Task<IActionResult> DeleteWishList(int id)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+            if (id != 0)
+            {
+                var wishlist = _context.WishLists.Where(w => w.WishListID == id && w.UserID.Equals(currentUser.Id)).FirstOrDefault();
+                _context.WishLists.Remove(wishlist);
+                await _context.SaveChangesAsync();
+            }
+            return Json(new { status = "true" });
+        }
+        public async Task<ActionResult> WishList()
+        {
+            var currentUser =  await _userManager.GetUserAsync(User);
+            if (currentUser == null) return Challenge();
+            var wishlist = await _context.WishLists.Include(p => p.Product).ThenInclude(c=>c.Category)
+                .Where(w => w.UserID.Equals(currentUser.Id)).ToListAsync();
+            var wvm = new WishListViewModel();
+            wvm.WishList = wishlist;
+               
+              
+                
+            return View(wvm);
         }
         [HttpPost]
         
-        public async Task<ActionResult> Comment(int productID,string message)
+        public async Task<ActionResult> Comment(int productID,string message,int rating)
         {
 
             var currentUser = await _userManager.GetUserAsync(User);
@@ -375,6 +443,7 @@ namespace JavaFloral.Controllers
                     Status = 1,
                     UserID = currentUser.UserName,
                     CommentTime = DateTime.Now,
+                    rating = rating != 0 ? rating : 0,
 
                 };
                 _context.Add(comment);
@@ -424,8 +493,11 @@ namespace JavaFloral.Controllers
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
+       
 
-        
+
+
+
 
 
     }

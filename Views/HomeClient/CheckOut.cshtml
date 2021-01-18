@@ -36,8 +36,6 @@
                                                         <input type="text" value="@Model.Users.UserName">
                                                     </div>
                                                 </div>
-
-
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="billing-info">
                                                         <label>Email Address</label>
@@ -50,11 +48,7 @@
                                                         <input type="text">
                                                     </div>
                                                 </div>
-
-
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -347,7 +341,7 @@
         var paymenttype = $('#payment-5 input[name=paymenttype]:checked').val();
         var receiveddate = $('#billinginfo input[name=receiveddate]').val();
         var name = $('#billinginfo input[name=name]').val();
-        
+
         $.ajax({
             type: 'POST',
             dataType: 'JSON',
@@ -367,15 +361,10 @@
                 alert("Payment Successfully")
                 window.location.href = '@Url.Action("Index")';
             }
-
             },
             error:
             function (response) {
-
             }
-
             });
-
     }
 </script>
-

@@ -72,59 +72,59 @@
                                         <li class="top-hover">
                                             <a href="/">home</a>
                                             @* <ul class="submenu">
-                                                    <li><a href="index.html">home version 1</a></li>
-                                                    <li><a href="index-2.html">home version 2</a></li>
-                                                </ul>*@
+                            <li><a href="index.html">home version 1</a></li>
+                            <li><a href="index-2.html">home version 2</a></li>
+                        </ul>*@
                                         </li>
                                         <li><a asp-action="About" asp-controller="HomeClient">about</a></li>
                                         <li class="mega-menu-position top-hover">
                                             <a asp-action="Product" asp-controller="HomeClient">shop</a>
                                             @* <ul class="mega-menu">
-                                                    <li>
-                                                        <ul>
-                                                            <li class="mega-menu-title">Categories 01</li>
-                                                            <li><a href="shop.html">Aconite</a></li>
-                                                            <li><a href="shop.html">Ageratum</a></li>
-                                                            <li><a href="shop.html">Allium</a></li>
-                                                            <li><a href="shop.html">Anemone</a></li>
-                                                            <li><a href="shop.html">Angelica</a></li>
-                                                            <li><a href="shop.html">Angelonia</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <ul>
-                                                            <li class="mega-menu-title">Categories 02</li>
-                                                            <li><a href="shop.html">Balsam</a></li>
-                                                            <li><a href="shop.html">Baneberry</a></li>
-                                                            <li><a href="shop.html">Bee Balm</a></li>
-                                                            <li><a href="shop.html">Begonia</a></li>
-                                                            <li><a href="shop.html">Bellflower</a></li>
-                                                            <li><a href="shop.html">Bergenia</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <ul>
-                                                            <li class="mega-menu-title">Categories 03</li>
-                                                            <li><a href="shop.html">Caladium</a></li>
-                                                            <li><a href="shop.html">Calendula</a></li>
-                                                            <li><a href="shop.html">Carnation</a></li>
-                                                            <li><a href="shop.html">Catmint</a></li>
-                                                            <li><a href="shop.html">Celosia</a></li>
-                                                            <li><a href="shop.html">Chives</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <ul>
-                                                            <li class="mega-menu-title">Categories 04</li>
-                                                            <li><a href="shop.html">Daffodil</a></li>
-                                                            <li><a href="shop.html">Dahlia</a></li>
-                                                            <li><a href="shop.html">Daisy</a></li>
-                                                            <li><a href="shop.html">Diascia</a></li>
-                                                            <li><a href="shop.html">Dusty Miller</a></li>
-                                                            <li><a href="shop.html">Dame’s Rocket</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>*@
+                            <li>
+                                <ul>
+                                    <li class="mega-menu-title">Categories 01</li>
+                                    <li><a href="shop.html">Aconite</a></li>
+                                    <li><a href="shop.html">Ageratum</a></li>
+                                    <li><a href="shop.html">Allium</a></li>
+                                    <li><a href="shop.html">Anemone</a></li>
+                                    <li><a href="shop.html">Angelica</a></li>
+                                    <li><a href="shop.html">Angelonia</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li class="mega-menu-title">Categories 02</li>
+                                    <li><a href="shop.html">Balsam</a></li>
+                                    <li><a href="shop.html">Baneberry</a></li>
+                                    <li><a href="shop.html">Bee Balm</a></li>
+                                    <li><a href="shop.html">Begonia</a></li>
+                                    <li><a href="shop.html">Bellflower</a></li>
+                                    <li><a href="shop.html">Bergenia</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li class="mega-menu-title">Categories 03</li>
+                                    <li><a href="shop.html">Caladium</a></li>
+                                    <li><a href="shop.html">Calendula</a></li>
+                                    <li><a href="shop.html">Carnation</a></li>
+                                    <li><a href="shop.html">Catmint</a></li>
+                                    <li><a href="shop.html">Celosia</a></li>
+                                    <li><a href="shop.html">Chives</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li class="mega-menu-title">Categories 04</li>
+                                    <li><a href="shop.html">Daffodil</a></li>
+                                    <li><a href="shop.html">Dahlia</a></li>
+                                    <li><a href="shop.html">Daisy</a></li>
+                                    <li><a href="shop.html">Diascia</a></li>
+                                    <li><a href="shop.html">Dusty Miller</a></li>
+                                    <li><a href="shop.html">Dame’s Rocket</a></li>
+                                </ul>
+                            </li>
+                        </ul>*@
                                         </li>
                                         <li class="top-hover">
                                             <a asp-action="Blog" asp-controller="HomeClient">blog</a>
@@ -147,43 +147,93 @@
                                     </div>
                                 </a>
                                 @*    <div class="shopping-cart-content">
-                                        <ul>
-                                            @if (Model.Count > 0)
-                                            {
-                                                decimal total = 0;
-                                                @foreach (var item in Model)
-                                                {
-                                                    <li class="single-shopping-cart">
-                                                        <div class="shopping-cart-img">
-                                                            <img alt="" src="~/images/@item.product.ProductImage">
-                                                        </div>
-                                                        <div class="shopping-cart-title">
-                                                            <h4>@item.product.Name</h4>
-                                                            <h6><input asp-for="@item.quantity" id="@($"quantity-{item.product.ProductID}")" /></h6>
-                                                            <span>$@item.product.Price</span>
-                                                        </div>
-                                                        <div class="shopping-cart-delete">
-                                                            <a asp-action="RemoveCart" asp-controller="HomeClient" asp-route-id="@item.product.ProductID"><i class="ion ion-close"></i></a>
-                                                        </div>
-                                                    </li>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <li class="single-shopping-cart">
-                                                    <span>Empty Cart</span>
-                                                </li>
-                                            }
-                                        </ul>
-                                        <div class="shopping-cart-total">
-                                            <h4>Shipping : <span>$20.00</span></h4>
-                                            <h4>Total : <span class="shop-total">$260.00</span></h4>
-                                        </div>
-                                        <div class="shopping-cart-btn">
-                                            <a asp-action="CartPage" asp-controller="HomeClient">view cart</a>
-                                            <a asp-action="Checkout" asp-controller="HomeClient">checkout</a>
-                                        </div>
-                                    </div>*@
+                <ul>
+                    @if (Model.Count > 0)
+                    {
+                        decimal total = 0;
+                        @foreach (var item in Model)
+                        {
+                            <li class="single-shopping-cart">
+                                <div class="shopping-cart-img">
+                                    <img alt="" src="~/images/@item.product.ProductImage">
+                                </div>
+                                <div class="shopping-cart-title">
+                                    <h4>@item.product.Name</h4>
+                                    <h6><input asp-for="@item.quantity" id="@($"quantity-{item.product.ProductID}")" /></h6>
+                                    <span>$@item.product.Price</span>
+                                </div>
+                                <div class="shopping-cart-delete">
+                                    <a asp-action="RemoveCart" asp-controller="HomeClient" asp-route-id="@item.product.ProductID"><i class="ion ion-close"></i></a>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="single-shopping-cart">
+                            <span>Empty Cart</span>
+                        </li>
+                    }
+                </ul>
+                <div class="shopping-cart-total">
+                    <h4>Shipping : <span>$20.00</span></h4>
+                    <h4>Total : <span class="shop-total">$260.00</span></h4>
+                </div>
+                <div class="shopping-cart-btn">
+                    <a asp-action="CartPage" asp-controller="HomeClient">view cart</a>
+                    <a asp-action="Checkout" asp-controller="HomeClient">checkout</a>
+                </div>
+            </div>*@
+                            </div>
+                            <div class="header-cart">
+                                <a asp-action="WishList" asp-controller="HomeClient">
+                                    <div class="cart-icon">
+                                        <i class="ion-ios-heart-outline"></i>
+                                        @*     <span class="count-style">02</span>*@
+                                    </div>
+                                    <div class="cart-text">
+
+                                        @*        <span>$0.00</span>*@
+                                    </div>
+                                </a>
+                                @*    <div class="shopping-cart-content">
+                <ul>
+                    @if (Model.Count > 0)
+                    {
+                        decimal total = 0;
+                        @foreach (var item in Model)
+                        {
+                            <li class="single-shopping-cart">
+                                <div class="shopping-cart-img">
+                                    <img alt="" src="~/images/@item.product.ProductImage">
+                                </div>
+                                <div class="shopping-cart-title">
+                                    <h4>@item.product.Name</h4>
+                                    <h6><input asp-for="@item.quantity" id="@($"quantity-{item.product.ProductID}")" /></h6>
+                                    <span>$@item.product.Price</span>
+                                </div>
+                                <div class="shopping-cart-delete">
+                                    <a asp-action="RemoveCart" asp-controller="HomeClient" asp-route-id="@item.product.ProductID"><i class="ion ion-close"></i></a>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="single-shopping-cart">
+                            <span>Empty Cart</span>
+                        </li>
+                    }
+                </ul>
+                <div class="shopping-cart-total">
+                    <h4>Shipping : <span>$20.00</span></h4>
+                    <h4>Total : <span class="shop-total">$260.00</span></h4>
+                </div>
+                <div class="shopping-cart-btn">
+                    <a asp-action="CartPage" asp-controller="HomeClient">view cart</a>
+                    <a asp-action="Checkout" asp-controller="HomeClient">checkout</a>
+                </div>
+            </div>*@
                             </div>
                         </div>
                     </div>

@@ -97,6 +97,8 @@ namespace JavaFloral.Areas.Admin.Controllers
                     CategoryID = model.CategoryID,
                     Created_at = model.Created_at,
                     Updated_at = model.Updated_at,
+                    Content = model.Content,
+                    Discount = model.Discount,
                 };
                 _context.Add(product);
                 await _context.SaveChangesAsync();
@@ -128,6 +130,8 @@ namespace JavaFloral.Areas.Admin.Controllers
                 CategoryID = product.CategoryID,
                 Created_at = product.Created_at,
                 Updated_at = product.Updated_at,
+                Content = product.Content,
+                Discount = product.Discount,
 
             };
 
@@ -175,6 +179,8 @@ namespace JavaFloral.Areas.Admin.Controllers
                         CategoryID = model.CategoryID,
                         Created_at = model.Created_at,
                         Updated_at = model.Updated_at,
+                        Content = model.Content,
+                        Discount = model.Discount,
                     };
                     _context.Update(product);
                     await _context.SaveChangesAsync();

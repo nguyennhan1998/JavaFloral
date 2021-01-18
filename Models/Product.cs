@@ -34,8 +34,10 @@ namespace JavaFloral.Models
         public DateTime Created_at { get; set; }
         public DateTime Updated_at { get; set; }
         public virtual Category Category { get; set; }
+        public int Discount { get; set; }
         public ICollection<OrderProducts> OrderProducts { get; set; }
         public ICollection<CommentProduct> CommentProducts { get; set; }
+        public string Content { get; set; }
 
     }
 }

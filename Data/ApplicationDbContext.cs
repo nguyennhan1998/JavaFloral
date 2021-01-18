@@ -60,6 +60,7 @@ namespace JavaFloral.Data
         public DbSet<CommentProduct> CommentProducts { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<CommentAnswer> CommentAnswers { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
 
     }
 }
