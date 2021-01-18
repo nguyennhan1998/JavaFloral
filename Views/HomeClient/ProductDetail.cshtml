@@ -79,10 +79,10 @@
                                onMouseOver="this.style.color='#ffff'"
                                onMouseOut="this.style.color='#242424'"
                                style="cursor: pointer;">
-                                <i class="icon-handbag"></i>
+                                <i class="icon-handbag" style="font-size: 20px;"></i>
                             </a>
                             <a title="Wishlist" href="#">
-                                <i class="icon-heart"></i>
+                                <i style="font-size: 20px;" class="icon-heart"></i>
                             </a>
                         </div>
                     </div>
@@ -105,7 +105,8 @@
         <div class="description-review-wrapper">
             <div class="description-review-topbar nav text-center">
                 <a class="active" data-toggle="tab" href="#des-details1">Description</a>
-
+                <a data-toggle="tab" href="#des-details2">Tags</a>
+                <a data-toggle="tab" href="#des-details3">Review</a>
             </div>
             <div class="tab-content description-review-bottom">
                 <div id="des-details1" class="tab-pane active">
@@ -120,13 +121,79 @@
                         </ul>
                     </div>
                 </div>
+                <div id="des-details2" class="tab-pane">
+                    <div class="product-anotherinfo-wrapper">
+                        <ul>
+                            <li><span>Tags:</span></li>
+                            <li><a href="#"> bouquet,</a></li>
+                            <li><a href="#"> event,</a></li>
+                            <li><a href="#"> gift,</a></li>
+                            <li><a href="#"> joy,</a></li>
+                            <li><a href="#"> love ,</a></li>
+                            <li><a href="#"> special</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="des-details3" class="tab-pane">
+                    <div class="rattings-wrapper">
+                        @foreach (var item in Model.CommentProducts)
+                        {
+                            <div class="sin-rattings">
+                                <div class="star-author-all">
+                                    <div class="ratting-star f-left">
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star theme-color"></i>
+                                        <span>(5)</span>
+                                    </div>
+                                    <div class="ratting-author f-right">
+                                        <h3>@item.Comment.UserID</h3>
+                                        <span>@item.Comment.CommentTime.ToString("HH:mm:ss")</span>
+                                        <span>@item.Comment.CommentTime.ToString("yyyy-MM-dd")</span>
+                                    </div>
+                                </div>
+                                <p>@item.Comment.Message</p>
+                            </div>
+                        }
+
+                        </div>
+                    <div class="ratting-form-wrapper">
+                        <h3>Add your Comments :</h3>
+                        <div class="ratting-form">
+                            <form asp-action="Comment" asp-controller="HomeClient">
+                                <div class="star-box">
+                                    <h2>Rating:</h2>
+                                    <div class="ratting-star">
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star theme-color"></i>
+                                        <i class="ion-star"></i>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  
+                                    <div class="col-md-12">
+                                        <div class="rating-form-style form-submit">
+                                            <input type="hidden" name="productID" value="@Model.ProductID" />
+                                            <textarea name="message" placeholder="Message"></textarea>
+                                            <input type="submit" value="add review">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
 </div>
-<h4 style="margin-left: 40px" class="blog-dec-title">Comments : @Model.CommentProducts.Count()</h4>
-<div class="blog-comment-wrapper mt-55 container">
+@*<h4 style="margin-left: 40px" class="blog-dec-title">Comments : @Model.CommentProducts.Count()</h4>*@
+@*<div class="blog-comment-wrapper mt-55 container">
     @foreach (var item in Model.CommentProducts)
     {
         <div class="single-comment-wrapper mt-35">
@@ -184,7 +251,7 @@
             </div>
         </div>
     </form>
-</div>
+</div>*@
 <div class="product-area pb-70">
     <div class="container">
         <div class="product-top-bar section-border mb-35">
