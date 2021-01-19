@@ -25,25 +25,29 @@
             overflow: hidden;
             white-space: nowrap;
             cursor: pointer;
-            font-size: 200%;
+            font-size: 150%;
             line-height: 1.2;
-            color: lightyellow;
-            text-shadow: 1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+            color: silver;
+            
+          
+           
         }
 
             .rating:not(:checked) > label:before {
-                content: '★ ';
+                content: '★';
+               
             }
 
         .rating > input:checked ~ label {
-            color: #f70;
-            text-shadow: 1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+            color: #ff3d2a;
+            
+          
         }
 
         .rating:not(:checked) > label:hover,
         .rating:not(:checked) > label:hover ~ label {
-            color: yellow;
-            text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+            color: #ff3d2a;
+            
         }
 
         .rating > input:checked + label:hover,
@@ -51,8 +55,8 @@
         .rating > input:checked ~ label:hover,
         .rating > input:checked ~ label:hover ~ label,
         .rating > label:hover ~ input:checked ~ label {
-            color: #ea0;
-            text-shadow: 1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+            color: #ff3d2a;
+           
         }
 
         .rating > label:active {
@@ -244,11 +248,17 @@
                             <div class="sin-rattings">
                                 <div class="star-author-all">
                                     <fieldset class="rating">
-                                        @for (var i = 0; i < item.Comment.rating; i++)
-                                        {
-                                            <input type="radio" style="background-color : yellow !important" id="@item.Comment.rating" name="rating" value="@item.Comment.rating" /><label for="@item.Comment.rating" title="Rocks!">@item.Comment.rating stars</label>
+                                        <div class="ratting-star f-left">
+                                           
+                                            @for (var i=0; i < item.Comment.rating; i++)
+                                            {
 
-                                        }
+
+                                                @* <input type="radio" style="background-color : yellow !important" id="@item.Comment.rating" name="rating" value="@item.Comment.rating" /><label for="@item.Comment.rating" title="Rocks!">@item.Comment.rating stars</label>*@
+                                                <i class="ion-star theme-color"></i>
+                                            }
+                                            <span>(@item.Comment.rating)</span>
+                                        </div>
 
                                     </fieldset>
                                     <div class="ratting-author f-right">
@@ -266,24 +276,28 @@
                         <h3>Add your Comments :</h3>
                         <div class="ratting-form">
                             <form asp-action="Comment" asp-controller="HomeClient">
+                               
                                 <div class="star-box">
-                                    <h2>Rating:</h2>
-                                    <div id="status"></div>
-                                 
-                                        <fieldset class="rating">
-                                            <legend>Please rate:</legend>
-                                            <input onchange="getStar()" type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                                            <input onchange="getStar()" type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                                            <input onchange="getStar()" type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-                                            <input onchange="getStar()" type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                                            <input onchange="getStar()" type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-                                        </fieldset>
+                                        <h2>Rating:</h2>
+                                        <div style="display:none;" id="status"></div>
                                        
-                                     
-                                 
-                                </div>
-                                <div class="row">
+                                            <fieldset class="rating">
 
+                                                <input onchange="getStar()" type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                                                <input onchange="getStar()" type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                                                <input onchange="getStar()" type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                                                <input onchange="getStar()" type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                                                <input onchange="getStar()" type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                                            </fieldset>
+                                        
+                                      
+
+
+
+                                    </div>
+                              
+                              
+                                <div class="container-fluid" style="margin-top: 100px;">
                                     <div class="col-md-12">
                                         <div class="rating-form-style form-submit">
                                             <input type="hidden" name="productID" value="@Model.product.ProductID" />
@@ -295,6 +309,8 @@
                             </form>
                         </div>
                     </div>
+
+                   
                 </div>
 
             </div>
