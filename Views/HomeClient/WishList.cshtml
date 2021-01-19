@@ -58,7 +58,10 @@
                                                 <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@product.Product.ProductID">
                                                     <img alt="" src="~/images/@product.Product.ProductImage">
                                                 </a>
-                                                <span>-30%</span>
+                                              @if (product.Product.Discount > 0)
+                                            {
+                                                <span>-@product.Product.Discount%</span>
+                                            }
                                                 <div class="product-action">
                                                     <a class="action-wishlist" href="#" title="Wishlist">
                                                         <i class="icon-heart"></i>
@@ -82,8 +85,19 @@
                                                     <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@product.Product.ProductID">@product.Product.Name</a>
                                                 </h4>
                                                 <div class="product-price-wrapper">
-                                                    <span>$@product.Product.Price </span>
-                                                    <span class="product-price-old">$@product.Product.Price </span>
+                                                    @if (product.Product.Discount > 0)
+                                                    {
+                                                        <span>
+                                                            $@(product.Product.Price - (product.Product.Price * product.Product.Discount)/100)
+
+                                                        </span>
+                                                        <span class="product-price-old">$@product.Product.Price </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>$@product.Product.Price </span>
+                                                        <span class="product-price-old">$@product.Product.Price </span>
+                                                    }
                                                 </div>
                                             </div>
                                             <div class="product-list-details">
@@ -91,16 +105,26 @@
                                                     <a href="product-details.html">@product.Product.Name</a>
                                                 </h4>
                                                 <div class="product-price-wrapper">
-                                                    <span>$@product.Product.Price </span>
-                                                    <span class="product-price-old">$@product.Product.Price  </span>
+
+                                                    @if (product.Product.Discount > 0)
+                                                    {
+                                                        <span>
+                                                            $@(product.Product.Price - (product.Product.Price * product.Product.Discount)/100)
+
+                                                        </span>
+                                                        <span class="product-price-old">$@product.Product.Price </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>$@product.Product.Price </span>
+                                                        <span class="product-price-old">$@product.Product.Price </span>
+                                                    }
                                                 </div>
                                                 <p>$@product.Product.Description </p>
                                                 <div class="shop-list-cart-wishlist">
                                                     <a href="#" title="Wishlist"><i class="icon-heart"></i></a>
                                                     <a href="#" title="Add To Cart"><i class="icon-handbag"></i></a>
-                                                    <a href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                        <i class="icon-magnifier-add"></i>
-                                                    </a>
+                                                   
                                                 </div>
                                             </div>
                                         </div>

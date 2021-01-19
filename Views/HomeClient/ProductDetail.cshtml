@@ -170,10 +170,10 @@
 
                     @if (Model.product.Discount > 0)
                     {
-                        <span style="color: red">
-                            $@((Model.product.Price * Model.product.Discount)/100)
+                <span style="color: red">
+                    $@(Model.product.Price - (Model.product.Price * Model.product.Discount)/100)
 
-                        </span>
+                </span>
                     }
 
                     <div class="in-stock">
@@ -421,10 +421,10 @@
                             
                             @if (item.Discount > 0)
                             {
-                                <span>
-                                    $@(item.Price - (item.Price * item.Discount)/100)
+                            <span>
+                                $@(item.Price - (item.Price * item.Discount)/100)
 
-                                </span>
+                            </span>
                                 <span class="product-price-old">$@item.Price </span>
                             }
                             else

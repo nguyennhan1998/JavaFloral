@@ -30,9 +30,18 @@ namespace JavaFloral.Controllers
         }
         public ActionResult Index(int id)
         {
-            var vm = new ProductListViewModel();
+                      var product = _context.Products.OrderByDescending(b => b.Created_at).ToList();
+
+            if(id != 0)
+            {
+                 product = _context.Products.Where(p => p.CategoryID == id).OrderByDescending(b => b.Created_at).ToList();
+
+            }
+            var hotproduct = _context.Products.OrderByDescending(p => p.Price).Take(8).ToList();
+            var vm = new HomeViewModel();
+            vm.Products = product;
             vm.Categories = _context.Categories.ToList();
-            vm.Products = _context.Products.Where(p => p.CategoryID == id).OrderByDescending(b => b.Created_at).ToList();
+            vm.HotProducts = hotproduct;
 
             return View(vm);
         }
@@ -227,6 +236,11 @@ namespace JavaFloral.Controllers
          
 
             var product = _context.Products.Where(p => p.ProductID == id).FirstOrDefault();
+          /*  if(product.Discount > 0)
+            {
+                product.Price = product.Price - (product.Price * product.Discount) / 100;
+           
+            }*/
             if(quantity == 0)
             {
                 quantity = 1;
@@ -242,6 +256,7 @@ namespace JavaFloral.Controllers
             // Xử lý đưa vào Cart ...
             var cart = GetCartItems();
             var cartitem = cart.Find(p => p.product.ProductID == id);
+
             if (cartitem != null)
             {
                 if(quantity != 0)
@@ -280,12 +295,19 @@ namespace JavaFloral.Controllers
             return View(cvm);
         }
 
-        public async Task<ActionResult> SaveOrder(string receiveddate, string name, string address, string message, int paymenttype, string telephone, string emailto)
+        public async Task<ActionResult> SaveOrder(string receiveddate, string name, string address, string message, int paymenttype, string telephone, string emailto,string paypalstatus)
+
         {
+
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
             var cart = GetCartItems();
-        
+            var status = 3;
+            if (paypalstatus == "success")
+            {
+                status = 1;
+                paymenttype = 2;
+            }
             decimal grandTotal = 0;
             foreach (var item in cart)
             {
@@ -298,7 +320,7 @@ namespace JavaFloral.Controllers
             {
                 OrderName = currentUser.UserName,
                 Name = !string.IsNullOrEmpty(name) ? name : "",
-                Status = 3,
+                Status = status,
                 GrandTotal = grandTotal,
                 CreateAt = DateTime.Now,
                 UserID = currentUser.UserName,
@@ -403,7 +425,7 @@ namespace JavaFloral.Controllers
 
             return Json(new { status = "true" });
         }
-        public async Task<IActionResult> DeleteWishList(int id)
+   /*     public async Task<IActionResult> DeleteWishList(int id)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
@@ -414,7 +436,7 @@ namespace JavaFloral.Controllers
                 await _context.SaveChangesAsync();
             }
             return Json(new { status = "true" });
-        }
+        }*/
         public async Task<ActionResult> WishList()
         {
             var currentUser =  await _userManager.GetUserAsync(User);

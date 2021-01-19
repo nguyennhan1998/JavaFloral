@@ -1,4 +1,4 @@
-﻿@model JavaFloral.ViewModels.ProductListViewModel
+﻿@model JavaFloral.ViewModels.HomeViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -79,7 +79,7 @@
                 <h3 class="section-title section-bg-white">Featured Products</h3>
             </div>
             <div class="product-tab-list nav section-bg-white">
-                <a class="active" data-toggle="tab" href="#tab1">
+                <a casp-action="Index" asp-controller="HomeClient" asp-route-id="0">
                     <h4>All </h4>
                 </a>
                 @foreach(var item in Model.Categories)
@@ -645,142 +645,42 @@
             </div>
         </div>
         <div class="featured-product-active hot-flower owl-carousel product-nav">
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-5.jpg">
-                    </a>
-                    <span>-30%</span>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
+            @foreach (var item in Model.HotProducts)
+            {
+                <div class="product-wrapper">
+                    <div class="product-img">
+                        <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@item.ProductID">
+                            <img alt="" src="~/images/@item.ProductImage">
                         </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
+                        <span>-30%</span>
+                        <div class="product-action">
+                            <a class="action-wishlist" href="#" title="Wishlist">
+                                <i class="icon-heart"></i>
+                            </a>
+                            <a class="action-cart" href="#" title="Add To Cart">
+                                <i class="icon-handbag"></i>
+                            </a>
+                            <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
+                                <i class="icon-magnifier-add"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-content text-center">
+                        <h4>
+                            <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@item.ProductID">@item.Name</a>
+                        </h4>
+                        <div class="product-price-wrapper">
+                            @if (item.Discount > 0)
+                            {
+                                <span>$ @(item.Price-(item.Price*item.Discount)/100)</span>
+                            }
+
+                            <span class="product-price-old">$ @item.Price  </span>
+                        </div>
                     </div>
                 </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Pearly Everlasting</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                        <span class="product-price-old">$120.00 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-6.jpg">
-                    </a>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Polka Dot Plant</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-7.jpg">
-                    </a>
-                    <span>-30%</span>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Glory of the Snow</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                        <span class="product-price-old">$120.00 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-8.jpg">
-                    </a>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Jack in the Pulpit</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrapper">
-                <div class="product-img">
-                    <a href="product-details.html">
-                        <img alt="" src="~/ClientFile/assets/img/product/product-6.jpg">
-                    </a>
-                    <span>-30%</span>
-                    <div class="product-action">
-                        <a class="action-wishlist" href="#" title="Wishlist">
-                            <i class="icon-heart"></i>
-                        </a>
-                        <a class="action-cart" href="#" title="Add To Cart">
-                            <i class="icon-handbag"></i>
-                        </a>
-                        <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                            <i class="icon-magnifier-add"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="product-content text-center">
-                    <h4>
-                        <a href="product-details.html">Flowers Bouquet Pink	</a>
-                    </h4>
-                    <div class="product-price-wrapper">
-                        <span>$100.00</span>
-                        <span class="product-price-old">$120.00 </span>
-                    </div>
-                </div>
-            </div>
+            }
+
         </div>
     </div>
 </div>
