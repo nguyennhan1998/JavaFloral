@@ -199,7 +199,10 @@
                                style="cursor: pointer;">
                                 <i class="icon-handbag" style="font-size: 20px;"></i>
                             </a>
-                            <a title="Wishlist" onclick="addWishList(this)" data-id="@Model.product.ProductID">
+                            <a title="Wishlist" onclick="addWishList(this)" data-id="@Model.product.ProductID"
+                               onMouseOver="this.style.color='#ffff'"
+                               onMouseOut="this.style.color='#242424'"
+                               style="cursor: pointer;">
                                 <i style="font-size: 20px;" class="icon-heart"></i>
                             </a>
                         </div>
@@ -392,7 +395,11 @@
                         <a href="product-details.html">
                             <img alt="" src="~/images/@item.ProductImage">
                         </a>
-                        <span>-30%</span>
+                        @if (item.Discount > 0)
+                        {
+                            <span>-@item.Discount%</span>
+                        }
+                        
                         <div class="product-action">
                             <a class="action-wishlist" href="#" title="Wishlist">
                                 <i class="icon-heart"></i>
@@ -403,7 +410,7 @@
                                style="cursor: pointer;">
                                 <i class="icon-handbag"></i>
                             </a>
-                        
+
                         </div>
                     </div>
                     <div class="product-content text-center">
@@ -411,7 +418,20 @@
                             <a asp-route-id="@item.ProductID" asp-controller="HomeClient" asp-action="ProductDetail">@item.Name</a>
                         </h4>
                         <div class="product-price-wrapper">
-                            <span>$@item.Price</span>
+                            
+                            @if (item.Discount > 0)
+                            {
+                                <span>
+                                    $@(item.Price - (item.Price * item.Discount)/100)
+
+                                </span>
+                                <span class="product-price-old">$@item.Price </span>
+                            }
+                            else
+                            {
+                                <span>$@item.Price </span>
+                                <span class="product-price-old">$@item.Price </span>
+                            }
                         </div>
                     </div>
                 </div>

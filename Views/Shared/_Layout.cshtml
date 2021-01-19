@@ -132,6 +132,7 @@
                                         </li>
 
                                         <li><a asp-action="Contact" asp-controller="HomeClient">contact</a></li>
+                                        <li><a asp-action="WishList" asp-controller="HomeClient">My wishlist</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -185,56 +186,7 @@
                 </div>
             </div>*@
                             </div>
-                            <div class="header-cart">
-                                <a asp-action="WishList" asp-controller="HomeClient">
-                                    <div class="cart-icon">
-                                        <i class="ion-ios-heart-outline"></i>
-                                        @*     <span class="count-style">02</span>*@
-                                    </div>
-                                    <div class="cart-text">
-
-                                        @*        <span>$0.00</span>*@
-                                    </div>
-                                </a>
-                                @*    <div class="shopping-cart-content">
-                <ul>
-                    @if (Model.Count > 0)
-                    {
-                        decimal total = 0;
-                        @foreach (var item in Model)
-                        {
-                            <li class="single-shopping-cart">
-                                <div class="shopping-cart-img">
-                                    <img alt="" src="~/images/@item.product.ProductImage">
-                                </div>
-                                <div class="shopping-cart-title">
-                                    <h4>@item.product.Name</h4>
-                                    <h6><input asp-for="@item.quantity" id="@($"quantity-{item.product.ProductID}")" /></h6>
-                                    <span>$@item.product.Price</span>
-                                </div>
-                                <div class="shopping-cart-delete">
-                                    <a asp-action="RemoveCart" asp-controller="HomeClient" asp-route-id="@item.product.ProductID"><i class="ion ion-close"></i></a>
-                                </div>
-                            </li>
-                        }
-                    }
-                    else
-                    {
-                        <li class="single-shopping-cart">
-                            <span>Empty Cart</span>
-                        </li>
-                    }
-                </ul>
-                <div class="shopping-cart-total">
-                    <h4>Shipping : <span>$20.00</span></h4>
-                    <h4>Total : <span class="shop-total">$260.00</span></h4>
-                </div>
-                <div class="shopping-cart-btn">
-                    <a asp-action="CartPage" asp-controller="HomeClient">view cart</a>
-                    <a asp-action="Checkout" asp-controller="HomeClient">checkout</a>
-                </div>
-            </div>*@
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

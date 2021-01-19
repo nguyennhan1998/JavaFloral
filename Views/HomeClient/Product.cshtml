@@ -39,7 +39,7 @@
                                     <option value="Name"> Name</option>
                                     <option value="Price"> price</option>
                                 </select>
-                                <button class="btn btn-primary btn-sm" type="submit">Soft</button>
+                                <button class="btn btn-danger btn-sm" type="submit"  style="cursor: pointer;">Soft</button>
                             </form>
                           
                         </div>
@@ -56,9 +56,14 @@
                                             <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@product.ProductID">
                                                 <img alt="" src="~/images/@product.ProductImage">
                                             </a>
-                                            <span>-30%</span>
+                                            @if (product.Discount > 0)
+                                            {
+                                                <span>-@product.Discount%</span>
+                                            }
                                             <div class="product-action">
-                                                <a title="Wishlist" onclick="addWishList(this)" data-id="@product.ProductID">
+                                                <a title="Wishlist" onclick="addWishList(this)" data-id="@product.ProductID" onMouseOver="this.style.color='#ffff'"
+                                                   onMouseOut="this.style.color='#242424'"
+                                                   style="cursor: pointer;">
                                                     <i style="font-size: 20px;" class="icon-heart"></i>
                                                 </a>
                                                 <a data-id="@product.ProductID" data-name="@product.Name" onclick="addToCart(this)"
@@ -67,9 +72,7 @@
                                                    style="cursor: pointer;">
                                                     <i class="icon-handbag"></i>
                                                 </a>
-                                                <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                    <i class="icon-magnifier-add"></i>
-                                                </a>
+                                               
                                             </div>
                                         </div>
                                         <div class="product-content text-center">
@@ -77,8 +80,24 @@
                                                 <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@product.ProductID">@product.Name</a>
                                             </h4>
                                             <div class="product-price-wrapper">
-                                                <span>$@product.Price </span>
-                                                <span class="product-price-old">$@product.Price </span>
+
+
+
+
+                                                @if (product.Discount > 0)
+                                                {
+                                                    <span>
+                                                        $@(product.Price - (product.Price * product.Discount)/100)
+
+                                                    </span>
+                                                    <span class="product-price-old">$@product.Price </span>
+                                                }
+                                                else
+                                                {
+                                                    <span>$@product.Price </span>
+                                                    <span class="product-price-old">$@product.Price </span>
+                                                }
+
                                             </div>
                                         </div>
                                         <div class="product-list-details">
@@ -86,16 +105,25 @@
                                                 <a href="product-details.html">@product.Name</a>
                                             </h4>
                                             <div class="product-price-wrapper">
-                                                <span>$@product.Price </span>
-                                                <span class="product-price-old">$@product.Price  </span>
+                                                @if (product.Discount > 0)
+                                                {
+                                                    <span>
+                                                        $@(product.Price - (product.Price * product.Discount)/100)
+
+                                                    </span>
+                                                    <span class="product-price-old">$@product.Price </span>
+                                                }
+                                                else
+                                                {
+                                                    <span>$@product.Price </span>
+                                                    <span class="product-price-old">$@product.Price </span>
+                                                }
                                             </div>
                                             <p>$@product.Description </p>
                                             <div class="shop-list-cart-wishlist">
                                                 <a href="#" title="Wishlist"><i class="icon-heart"></i></a>
                                                 <a href="#" title="Add To Cart"><i class="icon-handbag"></i></a>
-                                                <a href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                                    <i class="icon-magnifier-add"></i>
-                                                </a>
+                                                
                                             </div>
                                         </div>
                                     </div>
