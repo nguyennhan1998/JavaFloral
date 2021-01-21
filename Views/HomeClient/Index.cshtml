@@ -102,17 +102,20 @@
                                 {
                                     <span>-@item.Discount%</span>
                                 }
-                                <div class="product-action">
-                                    <a class="action-wishlist" href="#" title="Wishlist">
-                                        <i class="icon-heart"></i>
-                                    </a>
-                                    <a class="action-cart" href="#" title="Add To Cart">
-                                        <i class="icon-handbag"></i>
-                                    </a>
-                                    <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                        <i class="icon-magnifier-add"></i>
-                                    </a>
-                                </div>
+                            <div class="product-action">
+                                <a title="Wishlist" onclick="addWishList(this)" data-id="@item.ProductID" onMouseOver="this.style.color='#ffff'"
+                                   onMouseOut="this.style.color='#242424'"
+                                   style="cursor: pointer;">
+                                    <i style="font-size: 20px;" class="icon-heart"></i>
+                                </a>
+                                <a data-id="@item.ProductID" data-name="@item.Name" onclick="addToCart(this)"
+                                   onMouseOver="this.style.color='#ffff'"
+                                   onMouseOut="this.style.color='#242424'"
+                                   style="cursor: pointer;">
+                                    <i class="icon-handbag"></i>
+                                </a>
+
+                            </div>
                             </div>
                             <div class="product-content text-center">
                                 <h4>
@@ -675,17 +678,19 @@
                         {
                             <span>-@item.Discount%</span>
                         }
-                        <div class="product-action">
-                            <a class="action-wishlist" href="#" title="Wishlist">
-                                <i class="icon-heart"></i>
-                            </a>
-                            <a class="action-cart" href="#" title="Add To Cart">
-                                <i class="icon-handbag"></i>
-                            </a>
-                            <a class="action-compare" href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
-                                <i class="icon-magnifier-add"></i>
-                            </a>
-                        </div>
+                    <div class="product-action">
+                        <a title="Wishlist" onclick="addWishList(this)" data-id="@item.ProductID" onMouseOver="this.style.color='#ffff'"
+                           onMouseOut="this.style.color='#242424'"
+                           style="cursor: pointer;">
+                            <i style="font-size: 20px;" class="icon-heart"></i>
+                        </a>
+                        <a data-id="@item.ProductID" data-name="@item.Name" onclick="addToCart(this)"
+                           onMouseOver="this.style.color='#ffff'"
+                           onMouseOut="this.style.color='#242424'"
+                           style="cursor: pointer;">
+                            <i class="icon-handbag"></i>
+                        </a>
+                    </div>
                     </div>
                     <div class="product-content text-center">
                         <h4>
@@ -726,3 +731,59 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    function addToCart(e) {
+        let productID = $(e).attr("data-id");
+        let productName = $(e).attr("data-name");
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '@Url.Action("AddToCart")',
+            data: { id: productID },
+            success:
+                function (response) {
+                    if (response.status == "true") {
+                        alert("Add To Cart Successfully Product : " + productName)
+                    }
+                    if (response.status == "outofstock") {
+                        alert("Out of quantity please try again")
+                    }
+
+                },
+            error:
+                function (response) {
+
+                }
+
+        });
+    }
+    function addWishList(e) {
+        let productID = $(e).attr("data-id");
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '@Url.Action("AddWishList")',
+            data: {
+                id: productID,
+
+
+            },
+            success:
+                function (response) {
+                    if (response.status == "true") {
+                        alert("Add To WishList Successfully");
+                    }
+                    if (response.status == "exists") {
+                        alert("Item is already in wish list");
+                    }
+
+
+                },
+            error:
+                function (response) {
+
+                }
+
+        });
+    }
+</script>
