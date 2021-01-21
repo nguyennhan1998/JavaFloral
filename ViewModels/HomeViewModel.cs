@@ -11,5 +11,6 @@ namespace JavaFloral.ViewModels
         public List<Category> Categories { get; set; }
         public List<Product> Products { get; set; }
         public List<Product> HotProducts { get; set; }
+        
     }
 }

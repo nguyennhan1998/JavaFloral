@@ -87,65 +87,29 @@
                         </div>
                         <div class="blog-widget mb-40">
                             <div class="blog-author">
-                                <a href="#"><img src="~/ClientFile/assets/img/blog/blog-author.png" alt=""></a>
-                                <h4><a href="#">Kathy Gibson</a></h4>
-                                <span>Head of Director, SEO</span>
+                                <a href="#"><img src="~/ClientFile/assets/img/blog/vanhlu2.jpg" alt=""></a>
+                                <h4><a href="#">nguyen vanh</a></h4>
+                                <span>Head of blogger, blogger</span>
                             </div>
                         </div>
                         <div class="blog-widget mb-45">
                             <h4 class="blog-widget-title mb-25">Recent post</h4>
                             <div class="blog-recent-post">
-                                <div class="recent-post-wrapper mb-25">
-                                    <div class="recent-post-img">
-                                        <a href="#"><img src="~/ClientFile/assets/img/blog/blog-recentpost-1.jpg" alt=""></a>
+                                @foreach (var item in Model)
+                                {
+                                    <div class="recent-post-wrapper mb-25">
+                                        <div class="recent-post-img">
+                                            <a asp-action="BlogDetails" asp-controller="HomeClient" asp-route-id="@item.BlogID"> <img src="~/images/@item.BlogImage" alt=""></a>
+</div>
+                                        <div class="recent-post-content">
+                                            <h4><a asp-action="BlogDetails" asp-controller="HomeClient" asp-route-id="@item.BlogID">@item.Title</a></h4>
+                                            <span>@DateTime.Now</span>
+                                        </div>
                                     </div>
-                                    <div class="recent-post-content">
-                                        <h4><a href="#">New Products</a></h4>
-                                        <span>October 14, 2018</span>
-                                    </div>
+                                    }
                                 </div>
-                                <div class="recent-post-wrapper mb-25">
-                                    <div class="recent-post-img">
-                                        <a href="#"><img src="~/ClientFile/assets/img/blog/blog-recentpost-2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="recent-post-content">
-                                        <h4><a href="#">New Products</a></h4>
-                                        <span>October 14, 2018</span>
-                                    </div>
-                                </div>
-                                <div class="recent-post-wrapper mb-25">
-                                    <div class="recent-post-img">
-                                        <a href="#"><img src="~/ClientFile/assets/img/blog/blog-recentpost-3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="recent-post-content">
-                                        <h4><a href="#">New Products</a></h4>
-                                        <span>October 14, 2018</span>
-                                    </div>
-                                </div>
-                                <div class="recent-post-wrapper mb-25">
-                                    <div class="recent-post-img">
-                                        <a href="#"><img src="~/ClientFile/assets/img/blog/blog-recentpost-4.jpg" alt=""></a>
-                                    </div>
-                                    <div class="recent-post-content">
-                                        <h4><a href="#">New Products</a></h4>
-                                        <span>October 14, 2018</span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="blog-widget mb-40">
-                            <h4 class="blog-widget-title mb-25">categories</h4>
-                            <div class="blog-categori">
-                                <ul>
-                                    <li><a href="#">Birthday (05)</a></li>
-                                    <li><a href="#">Bouquets (08)</a></li>
-                                    <li><a href="#">Custom Orders (02)</a></li>
-                                    <li><a href="#">Home Decor (07)</a></li>
-                                    <li><a href="#">Weddings (06)</a></li>
-                                    <li><a href="#">Interior Decor (01)</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        
                         <div class="blog-widget mb-35">
                             <h4 class="blog-widget-title mb-30">instagram</h4>
                             <div class="blog-instagram">
@@ -170,21 +134,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="blog-widget">
-                            <h4 class="blog-widget-title mb-25">tags</h4>
-                            <div class="blog-tags">
-                                <ul>
-                                    <li><a href="#">bouquet</a></li>
-                                    <li><a href="#">event </a></li>
-                                    <li><a href="#">gift </a></li>
-                                    <li><a href="#">joy </a></li>
-                                    <li><a href="#">love  </a></li>
-                                    <li><a href="#">special </a></li>
-                                    <li><a href="#">success </a></li>
-                                    <li><a href="#">festival </a></li>
-                                </ul>
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
             </div>

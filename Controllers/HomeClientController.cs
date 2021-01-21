@@ -42,6 +42,7 @@ namespace JavaFloral.Controllers
             vm.Products = product;
             vm.Categories = _context.Categories.ToList();
             vm.HotProducts = hotproduct;
+            
 
             return View(vm);
         }

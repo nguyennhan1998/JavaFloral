@@ -9,7 +9,7 @@
         <div class="breadcrumb-content">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Shop  </li>
+                <li class="active">Wishlist  </li>
             </ul>
         </div>
     </div>
@@ -17,32 +17,19 @@
 <div class="shop-page-area pt-75 pb-75">
     <div class="container">
         <div class="row flex-row-reverse">
-            <div class="col-lg-9">
-                <div class="banner-area pb-30">
-                    <a href="product-details.html"><img alt="" src="~/ClientFile/assets/img/banner/banner-49.jpg"></a>
-                </div>
+            <div class="col-lg-12">
+                
                 <div class="shop-topbar-wrapper">
                     <div class="shop-topbar-left">
                         <ul class="view-mode">
                             <li class="active"><a href="#product-grid" data-view="product-grid"><i class="fa fa-th"></i></a></li>
                             <li><a href="#product-list" data-view="product-list"><i class="fa fa-list-ul"></i></a></li>
                         </ul>
-                        <p>Showing 1 - 20 of 30 results  </p>
+                       
                     </div>
                     <div class="product-sorting-wrapper">
 
-                        <div class="product-show shorting-style">
-
-                            <form asp-action="Product" asp-controller="HomeClient">
-                                <select name="soft">
-
-                                    <option value="Name"> Name</option>
-                                    <option value="Price"> price</option>
-                                </select>
-                                <button class="btn btn-primary btn-sm" type="submit">Soft</button>
-                            </form>
-
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="grid-list-product-wrapper">
@@ -52,7 +39,7 @@
                             {
                                 @foreach (var product in Model.WishList)
                                 {
-                                    <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
+                                    <div class="product-width col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 mb-30">
                                         <div class="product-wrapper">
                                             <div class="product-img">
                                                 <a asp-controller="HomeClient" asp-action="ProductDetail" asp-route-id="@product.Product.ProductID">
@@ -76,7 +63,7 @@
                                                        onMouseOver="this.style.color='#ffff'"
                                                        onMouseOut="this.style.color='#242424'"
                                                        style="cursor: pointer;">
-                                                        <i class="fa fa-remove"></i>
+                                                        <i class=" fa fa-trash-o"></i>
                                                     </a>
                                                 </div>
                                             </div>
@@ -159,7 +146,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <!--<div class="col-lg-3">
                 <div class="shop-sidebar-wrapper gray-bg-7 shop-sidebar-mrg">
                     <div class="shop-widget">
                         <h4 class="shop-sidebar-title">Shop By Categories</h4>
@@ -183,7 +170,7 @@
 
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
                     @*<div class="shop-price-filter mt-40 shop-sidebar-border pt-35">
                             <h4 class="shop-sidebar-title">Price Filter</h4>
                             <div class="price_filter mt-25">
@@ -198,7 +185,7 @@
                             </div>
                         </div>*@
 
-                    <div class="shop-widget mt-40 shop-sidebar-border pt-35">
+                    <!--<div class="shop-widget mt-40 shop-sidebar-border pt-35">
                         <h4 class="shop-sidebar-title">By Color</h4>
                         <div class="sidebar-list-style mt-20">
                             <ul>
@@ -215,7 +202,7 @@
 
 
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

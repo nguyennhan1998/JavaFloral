@@ -41,8 +41,8 @@
                             <img src="~/ClientFile/assets/img/banner/banner-1.png" alt="">
                         </a>
                         <div class="banner-content">
-                            <h4>Camellias</h4>
-                            <a href="#">shop Now</a>
+                            <h4>@Model.Categories[1].Name</h4>
+                            <a  asp-controller="HomeClient" asp-route-id="@Model.Categories[1].Categoryid" asp-action="Product">shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
                             <img src="~/ClientFile/assets/img/banner/banner-2.png" alt="">
                         </a>
                         <div class="banner-content">
-                            <h4>Bergamot</h4>
-                            <a href="#">shop Now</a>
+                            <h4>@Model.Categories[2].Name</h4>
+                            <a asp-controller="HomeClient" asp-route-id="@Model.Categories[2].Categoryid" asp-action="Product">shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -63,8 +63,8 @@
                             <img src="~/ClientFile/assets/img/banner/banner-3.png" alt="">
                         </a>
                         <div class="banner-content">
-                            <h4>Bottlebrush</h4>
-                            <a href="#">shop Now</a>
+                            <h4>@Model.Categories[3].Name</h4>
+                            <a asp-controller="HomeClient" asp-route-id="@Model.Categories[3].Categoryid" asp-action="Product">shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -572,29 +572,34 @@
                         <div class="testimonial-img">
                             <img alt="" src="~/ClientFile/assets/img/icon-img/testi.png">
                         </div>
-                        <p>When a beautiful design is combined with powerful technology,<br> it truly is an artwork. I love how my website operates and looks with this theme. <br>Thank you for the awesome product. </p>
-                        <h4>Samia Robiul</h4>
+                        <p>
+                            “ A rose can never be a sunflower, and a sunflower can never be  <br>  a rose. All flowers are beautiful in their own way, and that’s like women, too. ”
+                        </p>
+                        <h4>Miranda Kerr</h4>
                     </div>
                     <div class="single-testimonial text-center">
                         <div class="testimonial-img">
                             <img alt="" src="~/ClientFile/assets/img/icon-img/testi.png">
                         </div>
-                        <p>“ Lorem ipsum dolor sit, con adipisicing elit, sed do eiusmod tempor <br>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <br>exercitati ullamco laboris  ” </p>
-                        <h4> Tayeb Rayed</h4>
+                        <p>“ Flowers always make people better, <br> happier and more helpful; they are sunshine, food, and medicine to the soul.” </p>
+                        <h4> Luther Burbank</h4>
                     </div>
                     <div class="single-testimonial text-center">
                         <div class="testimonial-img">
                             <img alt="" src="~/ClientFile/assets/img/icon-img/testi.png">
                         </div>
-                        <p>When a beautiful design is combined with powerful ,<br> technology it truly is an artwork. I love how my website operates and looks with this  <br>theme. Thank you for the awesome product. </p>
-                        <h4>Hamim Ahamed</h4>
+                        <p>Flowers don’t worry about how they’re going to bloom. <br>  They just open up and turn toward the light and that makes them beautiful.  </p>
+                        <h4>
+                            Jim Carrey
+
+                        </h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="best-selling-product pt-70 pb-75 gray-bg">
+@*<div class="best-selling-product pt-70 pb-75 gray-bg">
     <div class="container">
         <div class="product-top-bar section-border mb-35">
             <div class="section-title-wrap">
@@ -650,7 +655,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <div class="product-area pt-70 pb-70">
     <div class="container">
         <div class="product-top-bar section-border mb-35">
@@ -714,7 +719,8 @@
             <div class="new-year-offer-content text-center">
                 <h4>New Year Offer</h4>
                 <h3>Fresh flowers for any special occasion</h3>
-                <a href="#">Discover now</a>
+                <a asp-controller="HomeClient" asp-route-id="@Model.Categories[1].Categoryid" asp-action="Product">Discover now</a>
+                
             </div>
         </div>
     </div>
