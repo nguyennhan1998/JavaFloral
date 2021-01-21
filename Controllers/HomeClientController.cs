@@ -236,12 +236,13 @@ namespace JavaFloral.Controllers
          
 
             var product = _context.Products.Where(p => p.ProductID == id).FirstOrDefault();
-          /*  if(product.Discount > 0)
+            if (product.Discount > 0)
             {
                 product.Price = product.Price - (product.Price * product.Discount) / 100;
-           
-            }*/
-            if(quantity == 0)
+
+            }
+            product.Content = "";
+            if (quantity == 0)
             {
                 quantity = 1;
             }
@@ -350,7 +351,7 @@ namespace JavaFloral.Controllers
                 await _context.SaveChangesAsync();
 
             }
-            if (!string.IsNullOrEmpty(emailto))
+            /*if (!string.IsNullOrEmpty(emailto))
             {
                 MimeMessage ms = new MimeMessage();
                 MailboxAddress from = new MailboxAddress("Admin", currentUser.Email);
@@ -368,7 +369,7 @@ namespace JavaFloral.Controllers
                 client.Disconnect(true);
                 client.Dispose();
                 
-            }
+            }*/
             var session = _httpContextAccessor.HttpContext.Session;
             session.Remove(CARTKEY);
             
@@ -408,7 +409,7 @@ namespace JavaFloral.Controllers
             if (currentUser == null) return Challenge();
             if(id != 0)
             {
-                if (_context.WishLists.Any(w => w.Product.ProductID == id && w.UserID.Equals(currentUser.Id)))
+                if (_context.WishLists.Any(w => w.ProductID == id && w.UserID.Equals(currentUser.Id)))
                 {
                     return Json(new { status = "exists" });
 
@@ -416,7 +417,7 @@ namespace JavaFloral.Controllers
                 var product = _context.Products.Where(p => p.ProductID == id).FirstOrDefault();
 
                 var wishlist = new WishList();
-                wishlist.Product = product;
+                wishlist.ProductID = product.ProductID;
                 wishlist.UserID = currentUser.Id;
                 _context.Add(wishlist);
                 await _context.SaveChangesAsync();
@@ -425,7 +426,7 @@ namespace JavaFloral.Controllers
 
             return Json(new { status = "true" });
         }
-   /*     public async Task<IActionResult> DeleteWishList(int id)
+        public async Task<IActionResult> DeleteWishList(int id)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
@@ -436,7 +437,7 @@ namespace JavaFloral.Controllers
                 await _context.SaveChangesAsync();
             }
             return Json(new { status = "true" });
-        }*/
+        }
         public async Task<ActionResult> WishList()
         {
             var currentUser =  await _userManager.GetUserAsync(User);

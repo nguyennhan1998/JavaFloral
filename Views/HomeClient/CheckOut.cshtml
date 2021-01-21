@@ -124,34 +124,10 @@
                         </div>
 
 
+               
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h5 class="panel-title"><span>2.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-5">payment information</a></h5>
-                            </div>
-                            <div id="payment-5" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="payment-info-wrapper">
-                                        <div class="ship-wrapper">
-                                            <div class="single-ship">
-                                                <input name="paymenttype" value="1" type="radio" checked="">
-                                                <label>Check / Money order </label>
-                                            </div>
-                                            <div class="single-ship">
-                                                <input type="radio" value="2" name="paymenttype">
-                                                <label>Credit Card (saved) </label>
-                                            </div>
-                                        </div>
-                                        <div class="payment-info">
-                                            <div id="paypal-button-container"></div>
-                                        </div>
-                               
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h5 class="panel-title"><span>3.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-6">Order review</a></h5>
+                                <h5 class="panel-title"><span>2.</span> <a data-toggle="collapse" data-parent="#faq" href="#payment-6">Order review</a></h5>
                             </div>
                             <div id="payment-6" class="panel-collapse collapse">
                                 <div class="panel-body">
@@ -221,6 +197,11 @@
 
                                                 </span>
                                                 <input type="hidden" id="paypalstatus" />
+                                                <div class="billing-btn">
+
+                                                    <div id="paypal-button-container"></div>
+                                                </div>
+                                            
                                                 <div class="billing-btn">
 
                                                     <a onclick="checkout()" class="btn btn-danger" style="background-color: #ff3d2a; border: medium none; border-radius: 3px; color: #fff; cursor: pointer; font-weight: 500; height: inherit; line-height: 1; padding: 15px 46px; text-transform: uppercase; width: inherit; font-size: 12px;" onmouseover="this.style.background='black', this.style.color='white', this.style.transition='all 0.3s ease-out 0s'" onmouseout="this.style.background='#ff3d2a', this.style.color='fff'">Pay Now</a>
@@ -293,21 +274,26 @@
             });
     }
 </script>
-
+<script>
+    function hide() {
+        console.log(aaa);
+    }
+</script>
 <script>
     var cart = [];
     var total = 0;
     $(document).ready(function () {
 
         var model = JSON.parse('@Html.Raw(Json.Serialize(Model))');
+        console.log(model);
         var cartmodel = model.carts;
         cartmodel.forEach(item => {
 
             total += item.quantity * item.product.price;
             cart.push(({ name: item.product.name, unit_amount: { currency_code: "USD", value: item.product.price }, quantity: item.quantity }));
         });
-
         console.log(cart);
+ 
     });
     
     paypal.Buttons({
